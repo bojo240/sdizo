@@ -72,7 +72,7 @@ void BST::deleteFromBST(int value, bool test)
         return;//wyjdz
     }
     std::cout<<returnValueOfRoot()<<'\n';
-    if(isLeaf(Temp))//jezeli to lisc
+    if(isLeaf(Temp))//jezeli usuwany element to lisc
     {
             std::cout<<"2\n";
         if(Temp->Parent->Left==Temp)//jezeli usuwany element to lewe dziecko swojego rodzica
@@ -92,79 +92,19 @@ void BST::deleteFromBST(int value, bool test)
         Temp->Right=nullptr;//wyczysc wskazniki
         return;
     }
-    //albo wezel ma tylko lewe poddrzewo, albo szukamy nastepnika w prawym poddrzewie.
-    //na pewno element to usunięcia nie jest liściem, ani jego lewe/prawe poddrzewo nie sa liscmi.
-
-    if(Temp->Right)//jezeli możesz, idz w prawo
+    if(isLeaf(Temp->Left))
     {
-        if(!(Temp->Right->Left))//jezeli nie mozesz isc w lewo
-        {//ojcu przypisuje prawe dziecko
-            std::cout<<"4\n";
-            displayBST();
-            Temp->Right->Parent=Temp->Parent;
-            //std::cout<<"gdzie\n";
-            if(Temp->Parent)//-----------------------------------   NIE MA TEMP->PARENT, bo w sumie usuwam roota..
-            {
-                if(Temp->Parent->Right&&Temp->Parent->Right==Temp)
-                {
-                    Temp->Parent->Right=Temp->Right;
-                    std::cout<<"ty\n";
-                }
-                else if(Temp->Parent->Left)
-                {
-                    Temp->Parent->Left=Temp->Right;
-                    std::cout<<"sie\n";
-                }
-            }
-            std::cout<<"szmato\n";
-
-            //jeżeli mam lewe poddrzewo, przypisuje je swojemu prawemu dziecku.
-            if(Temp->Left)//jezeli mam lewe poddrzewo, przypisuje je do swojego prawego dziecka
-            {
-                std::cout<<"kurwa\n";
-                Temp->Left=Temp->Right->Left;
-                Temp->Right->Left=Temp->Left;
-            }
-            std::cout<<"pierdolisz\n";
-            delete Temp;//zwolnij pamiec
-            std::cout<<"pipo.";
-            return;//wyjdz
-        }
-        else//jezeli moge w prawo, a nastepnie w lewo
-        {
-            std::cout<<"5\n";
-            Node* Tempp=Temp; //zapisuje adres elementu do usuniecia
-            Temp=Temp->Right;//ide w prawo
-            while(Temp->Left)//ide na maksa w lewo
-                Temp=Temp->Left;
-            Tempp->Value=Temp->Value;//zamieniam wartosci
-
-
-            if(Temp->Right)//jezeli ma prawe dziecko
-            {
-                Temp->Right->Parent=Temp->Parent; //jego ojcu przypisz prawe dziecko, a prawemu dziecku przypisz swojego ojca.
-                if(Temp->Parent->Right==Temp)
-                    Temp->Parent->Right=Temp->Right;
-                else
-                    Temp->Parent->Left=Temp->Right;
-            }
-            else//jezeli jest lisciem
-            {
-                Temp->Parent->Left=nullptr;
-                delete Temp;
-            }
-        }
+        Temp->Value=Temp->Left->Value;
+        delete Temp->Left;
+        Temp->Left=nullptr;
+        return;
     }
+
     else
     {
-        std::cout<<"6\n";
-        Temp->Left->Parent=Temp->Parent;
-        if(Temp->Parent->Right==Temp)
-            Temp->Parent->Right=Temp->Left;
-        else
-            Temp->Parent->Left=Temp->Left;
+        Node* Suc = successor(Temp);
+        //no i co?
     }
-    std::cout<<"usuniete\n";
 }
 
 Node* BST::successor(Node* Temp)
@@ -176,13 +116,23 @@ Node* BST::successor(Node* Temp)
             Temp=Temp->Left;
         return Temp;
     }
-    else if(Temp->Parent)//jezeli jestes lewym synem swojego ojca
-    {
-        if(Temp->Parent->Left==Temp)
+    else if(Temp->Parent&&Temp->Parent->Left==Temp)//jezeli jestes lewym synem swojego ojca ----- czy ja to wgl potrzebuje!?
         return Temp->Parent;
+    else                        //jezeli jestes prawym dzieckiem swojego syna
+    {
+        while(Temp->Parent&&Temp->Parent->Right==Temp)
+            Temp=Temp->Parent; //idz w gore dopoki jestes prawym dzieckiem.
+
+            // JESTEM MAKSYMALNIE NA GORZE DRZEWA, ALBO JESTEM W KONCU LEWYM SYNEM, CZYLI IDE ->PARENT->RIGHT ALBO JESTEM ROOTEM I NIE MA NASTEPNIKA
+        if (Temp==Root)
+            return nullptr;
+        else                // w tym momencie jestes lewym dzieckiem
+            Temp=Temp->Parent;
+        Temp=Temp->Right;
+        while (Temp->Left)
+            Temp=Temp->Left;
+        return Temp;
     }
-
-
 }
 
 Node* BST::isValueInBST(int value)

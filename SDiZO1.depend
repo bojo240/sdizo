@@ -1,11 +1,11 @@
 # depslib dependency file v1.0
-1522786509 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.cpp
+1522829939 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.cpp
 	"BST.h"
 	<iostream>
 	<fstream>
 	<random>
 
-1522780121 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.h
+1522829989 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.h
 	<string>
 
 1522776081 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\heap.cpp
@@ -27,7 +27,7 @@
 1522780180 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\list.h
 	<string>
 
-1522786699 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\main.cpp
+1522830018 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\main.cpp
 	<conio.h>
 	<string>
 	<chrono>

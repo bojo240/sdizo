@@ -75,45 +75,45 @@ int main()
     //removefromlistrandom();
     //removefromlistend();
     //removefromheap();
-    removefromBST();
-//
-//
-//	char option;
-//	do{
-//		std::cout << "\n==== MENU GLOWNE ===\n";
-//		std::cout << "1. Tablica\n";
-//		std::cout << "2. Lista\n";
-//		std::cout << "3. Kopiec\n";
-//		std::cout << "4. Drzewo BST\n";
-////		std::cout << "5.Drzewo RB\n";
-//		std::cout << "0. Wyjscie\n";
-//		std::cout << "\nPodaj opcje:";
-//		option = getche();
-//		std::cout << "\n";
-//
-//		switch (option){
-//		case '1':
-//			menu_table();
-//			break;
-//
-//		case '2':
-//			menu_list();
-//			break;
-//
-//		case '3':
-//			menu_heap();
-//			break;
-//        case '4':
-//            menu_BST();
+    //removefromBST();
+
+
+	char option;
+	do{
+		std::cout << "\n==== MENU GLOWNE ===\n";
+		std::cout << "1. Tablica\n";
+		std::cout << "2. Lista\n";
+		std::cout << "3. Kopiec\n";
+		std::cout << "4. Drzewo BST\n";
+//		std::cout << "5.Drzewo RB\n";
+		std::cout << "0. Wyjscie\n";
+		std::cout << "\nPodaj opcje:";
+		option = getche();
+		std::cout << "\n";
+
+		switch (option){
+		case '1':
+			menu_table();
+			break;
+
+		case '2':
+			menu_list();
+			break;
+
+		case '3':
+			menu_heap();
+			break;
+        case '4':
+            menu_BST();
+            break;
+//        case '5':
+//            menu_RB();
 //            break;
-////        case '5':
-////            menu_RB();
-////            break;
-//        break;
-//		}
-//
-//	} while (option != '0');
-//
+        break;
+		}
+
+	} while (option != '0');
+
 
 	return 0;
 }

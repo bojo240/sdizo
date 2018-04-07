@@ -19,6 +19,8 @@ class BST
     void rotateLeft(Node*);
 	void deleteWholeBST(Node*);
     void DSW();
+    Node* successor(Node* Temp);
+
 public:
     BST ();//konstruktor/lista inicjalizacyjna
 	void addNodeToBST(int value);
