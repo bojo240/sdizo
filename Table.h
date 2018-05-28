@@ -2,16 +2,15 @@
 #include <string>
 class Table
 {
-	int *tab; //tablica dynamiczna
+	int *tab; //tablica dynamiczna // jedyne prywatne pole
 public:
     int cnt; //ilosc elementow w tablicy
-    Table();
+    Table(); //konstruktor
+    void addValueToTable(int index, int value);
 	void loadFromFileToTable(std::string FileName);
     void displayTable();
     void clearTable();
 	bool isValueInTable(int val);
-	void addValueToTable(int index, int value);
 	void deleteFromTable(int index);
-	void generateTable(int size);
-	void testAdd(int size);
+	void generateTable(int size, int* =nullptr, int randmax=1000);
 };

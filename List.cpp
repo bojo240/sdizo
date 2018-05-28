@@ -7,87 +7,68 @@ Elements::Elements() : Value(0), Next(nullptr), Prev(nullptr) {;} //konstruktor 
 
 List::List() : Head (nullptr), Tail(nullptr), cnt(0) {;} //konstruktor / lista inicjalizacyjna
 
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static std::uniform_int_distribution<> dist(1, 1000000);
+
+
 void List::addValueToList(int index, int value) //najpierw przechodze po liscie w wybrane miejsce, dopiero pozniej dodaje tam wartosc.
 {
 
     if (!Head) //jezeli nie ma head
 	{
-		Head = new Elements;
-		Head->Value = value;
-		Tail = Head;
-		++cnt;
+		Head = new Elements; // utworz
+		Head->Value = value; //przypisz wartosc
+		Tail = Head; // nie zapomnij o Tail
+		++cnt; // zwieksz licznik
 	}
 	else if (index == 0) //jezeli dodaje na poczatek
 	{
-		Elements *Temp = Head;
-		Temp->Prev = new Elements;
-		Temp=Temp->Prev;
-		Temp->Value = value;
-		Temp->Next = Head;
-		Head = Temp;
-		++cnt;
+		Elements *Temp = Head; //ustaw wskaznik na head
+		Temp->Prev = new Elements; // zadeklaruj pamiec
+		Temp=Temp->Prev; // przesun sie na ten element
+		Temp->Value = value; // przypisz wartosc
+		Temp->Next = Head;// przypisz nexta
+		Head = Temp; // ustaw head na ten element
+		++cnt; // zwieksz licznik
 	}
 	else if (index == cnt) //jezeli dodaje na koniec
 	{
-		Elements *Temp = Tail;
-		Temp->Next = new Elements;
-		Temp = Temp->Next;
-		Temp->Prev = Tail;
+		Elements *Temp = Tail; // ustaw sie na Tail
+		Temp->Next = new Elements; // zadeklaruj pamiec
+		Temp = Temp->Next; // przejdz do tego elementu
+		Temp->Prev = Tail; // ustaw pola struktury
 		Temp->Value = value;
 		Tail = Temp;
 		++cnt;
 	}
 	else if (index < cnt) //jezeli gdzies w srodek
 	{
-        Elements *Temp = Head;
-		if(index<=(cnt/2))
+        Elements *Temp = Head; //ustaw sie wstepnie na head
+		if(index<=(cnt/2)) // jezeli wstawiamy w pierwsza polowe
             for (int i = 0; i < (index - 1); ++i)
-                Temp = Temp->Next;
-        else
+                Temp = Temp->Next; //idz do przodu
+        else // jezeli w druga polowe
         {
-            Temp = Tail;
+            Temp = Tail; // ustaw sie na ogon
             for (int i = 0; i < (cnt-index); ++i)
-                Temp = Temp->Prev;
+                Temp = Temp->Prev; // przesuwaj sie do tylu
         }
-        Elements *NextTemp = Temp->Next;
-		Temp->Next = new Elements;
-		Temp->Next->Prev = Temp;
+        Elements *NextTemp = Temp->Next; // zapisz sobie adres nastepnego elementu
+		Temp->Next = new Elements; // zadeklaruj pamiec
+		Temp->Next->Prev = Temp; // ustaw pola struktury
 		Temp->Next->Value = value;
 		Temp->Next->Next = NextTemp;
 		NextTemp->Prev=Temp->Next;
-		++cnt;
+		++cnt; // zwieksz licznik
 	}
     else
         std::cout<<"Nieprawidlowy index.";
 }
 
-int List::returnValue(int index)
+void List::deleteFromList(int value, bool test) // usuwanie z listy
 {
-        Elements *Temp = Head;
-		if(index<=(cnt/2))
-            for (int i = 0; i < index; ++i)
-                Temp = Temp->Next;
-        else
-        {
-            Temp = Tail;
-            for (int i = 0; i < (cnt-index)-1; ++i)
-                Temp = Temp->Prev;
-        }
-    return Temp->Value;
-}
-
-void List::deleteFromList(int value, bool test)
-{
-    Elements * Temp=Head;
-    while(Temp)
-    {
-        if(Temp->Value==value)//jezeli znalazles
-             break;//zwroc wskaznik
-        if(Temp->Next)
-            Temp = Temp->Next;//przesuwaj sie po liscie
-        else
-            return;
-    }
+    Elements * Temp=isValueInList(value);
     //adres zwrocony przez funkcje isValueInList - jezeli zwroci nullptr,
     //Elementsu nie ma w liscie, czyli if(0),
     //w przeciwnym przypadku if wykona sie, i usunie Elements
@@ -95,33 +76,34 @@ void List::deleteFromList(int value, bool test)
     {
         if(Head==Tail)//jezeli jest tylko jeden element
         {
-            delete Head;
+            delete Head; // wyzeruj head, tail i zwolnij pamiec
             Head=nullptr;
             Tail=nullptr;
         }
-        else if(Temp==Tail)
+        else if(Temp==Tail)//jezeli to Tail
         {
-            Temp->Prev->Next=Temp->Next;
-            Tail=Temp->Prev;
-            delete Temp;
+
+            Tail=Tail->Prev; // zmien odpowiednie pola w strukturze
+            Tail->Next=nullptr;
+            delete Temp; // zwolnij pamiec
         }
 
-        else if(Temp==Head)
+        else if(Temp==Head) // jezeli to Head
         {
-            Head=Head->Next;
+            Head=Head->Next; //zmien odpowiednie pola w strukturze
             Head->Prev=nullptr;
-            delete Temp;
+            delete Temp; // zwolnij pamiec
         }
         else
         {
-            Temp->Prev->Next=Temp->Next;
+            Temp->Prev->Next=Temp->Next;//zmien pola
             Temp->Next->Prev=Temp->Prev;
-            delete Temp;
+            delete Temp; // zwolnij pamiec
         }
-        --cnt;
+        --cnt; // zmniejsz licznik
     }
-    else if (!test)
-        std::cout<<"\nPodanej wartosci nie ma w liscie!!\n";
+    else if (!test) // jezeli to nie jest test
+        std::cout<<"\nPodanej wartosci nie ma w liscie!!\n"; // wyswielt error
 }
 
 void List::loadFromFileToList(std::string FileName)
@@ -132,7 +114,7 @@ void List::loadFromFileToList(std::string FileName)
     {
         clearList(); //wyczysc liste
         for(int i=0, a ; plik>>a ; ++i)
-            addValueToList(i,a); //dodawaj do listy, w tym przypadku akurat na koniec listy.
+            addValueToList(i,a); //dodawaj na koniec listy.
         plik.close();
     }
     else
@@ -143,7 +125,7 @@ void List::clearList()
 {
     if(!Head) //jezeli lista pusta
         return;
-    Elements *Temp = Head;
+    Elements *Temp = Head; // ustaw sie na Head
     while(Temp->Next)
     {
         Temp=Temp->Next;//idz do nastepnego
@@ -155,14 +137,11 @@ void List::clearList()
     cnt=0;
 }
 
-void List::generateList(int size)
+void List::generateList(int size, int* tab, int randmax)
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(1, 1000000);
     clearList(); //wyczysc liste
     for (int i=0;i<size;++i)
-        addValueToList(i,dist(gen)); //dodaj wartosci losowe
+        addValueToList(i, dist(gen)%(2*randmax)-randmax); //dodaj wartosci losowe
 }
 
 void List::displayList()
@@ -180,17 +159,36 @@ void List::displayList()
         std::cout<<"\nHead:"<<Head->Value<<"\nTail:"<<Tail->Value<<"\n"; //dodatkowo wyswietl wartosci head i tail
 }
 
-
-bool List::isValueInList(int value)
+Elements* List::isValueInList(int value) // funkcja zwraca wskaznik na znaleziony element, jezeli nie znajdzie zwraca nullptr
 {
     Elements *Temp = Head;
     while(Temp)
     {
         if(Temp->Value==value)
-            return true;
+            return Temp;
         if(Temp->Next)
             Temp=Temp->Next;
         else
-            return false;
+            return nullptr;
     }
+    return nullptr;
+}
+
+int List::returnValue(int index) // funkcja sluzaca glownie do testow, zwraca
+{
+    Elements *Temp = Head; // ustaw sie na head
+    if (index<cnt) // jezeli index ma sensowna wartosc
+    {
+        if(index<=(cnt/2)) // jezeli indeks to mniej niz polowa ilosci elementow
+            for (int i = 0; i < index; ++i)
+                Temp = Temp->Next; // idz do przodu
+        else // jezeli wiecej niz polowa
+        {
+            Temp = Tail; // ustaw sie na tail
+            for (int i = 0; i < (cnt-index)-1; ++i)
+                Temp = Temp->Prev; // idz do tylu
+        }
+        return Temp->Value; // zwroc ta wartosc
+    }
+    return Temp->Value;
 }

@@ -3,8 +3,6 @@
 #include <fstream>
 #include <random>
 
-//std::string cr,cl,cp;//zmienne string wykorzystywane do metody wyswietlania drzewa
-
 Node::Node() :  Value(0), Left(nullptr), Right(nullptr), Parent(nullptr) {;}
 //konstruktor / lista inicjalizacyjna
 
@@ -15,10 +13,13 @@ BST::BST() : cr("  "), cl("  "), cp ("  "), Root (nullptr)//konstruktor / lista 
     cp[0] = 179;
 }
 
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static std::uniform_int_distribution<> dist(1, 1000000);
 
 int BST::returnValueOfRoot() {return Root->Value;}
 
-void BST::addNodeToBST(int value)
+void BST::addNodeToBST(int value, bool dsw)
 {
     if (!Root)
     {
@@ -56,55 +57,81 @@ void BST::addNodeToBST(int value)
                 }
             }
         }
-        DSW();
+        if(dsw)
+            DSW();
+        return;
     }
 }
 
-void BST::deleteFromBST(int value, bool test)
+void BST::deleteFromBST(int value, bool test, bool dsw)
 {
     Node *Temp=isValueInBST(value);//tworze zmienna i przypisuje jej adres szukanego Node
-    //displayBST();
+
     if(!Temp)//jezeli wartosci nie ma w drzewie
     {
-        std::cout<<"1\n";
         if(!test)//jezeli to nie jest test, wyswietl komunikat
             std::cout<<"\nPodanej wartosci nie ma w drzewie!!\n";
-        return;//wyjdz
     }
-    std::cout<<returnValueOfRoot()<<'\n';
-    if(isLeaf(Temp))//jezeli usuwany element to lisc
+    else if(isLeaf(Temp))//jezeli usuwany element to lisc
     {
-            std::cout<<"2\n";
-        if(Temp->Parent->Left==Temp)//jezeli usuwany element to lewe dziecko swojego rodzica
-            Temp->Parent->Left=nullptr;//wyczysc wskazniki
-        else//analogicznie, jezeli usuwany element to prawe dziecko swojego rodzica
-            Temp->Parent->Right=nullptr;
+        if(Temp->Parent)
+        {
+            if(Temp->Parent->Left==Temp)//jezeli usuwany element to lewe dziecko swojego rodzica
+                Temp->Parent->Left=nullptr;//wyczysc wskazniki
+            else//analogicznie, jezeli usuwany element to prawe dziecko swojego rodzica
+                Temp->Parent->Right=nullptr;
+        }
+        else
+            Root=nullptr;
         delete Temp;//zwolnij pamiec
-        return;
     }
 
-    if(isLeaf(Temp->Right))
+    else if(Temp->Right&&!(Temp->Left))
     //jezeli jego prawe dziecko to lisc, zamien ich klucze miejscami
     {
-        std::cout<<"3\n";
         Temp->Value=Temp->Right->Value;
         delete Temp->Right;//zwolnij pamiec
         Temp->Right=nullptr;//wyczysc wskazniki
-        return;
     }
-    if(isLeaf(Temp->Left))
+    else if(Temp->Left&&!(Temp->Right)) //analogicznie jezeli lewe dziecko to lisc
     {
         Temp->Value=Temp->Left->Value;
         delete Temp->Left;
         Temp->Left=nullptr;
-        return;
     }
-
     else
     {
-        Node* Suc = successor(Temp);
-        //no i co?
+        Node* Suc = successor(Temp); // znajdz nastepnika
+        int temporary=Temp->Value; // zapamietaj obecnego node'a
+        Temp->Value=Suc->Value; // zamien klucze
+        Suc->Value=temporary;
+        if(isLeaf(Suc))//jezeli usuwany element to lisc
+        {
+            if(Suc->Parent->Left==Suc)//jezeli usuwany element to lewe dziecko swojego rodzica
+                Suc->Parent->Left=nullptr;//wyczysc wskazniki
+            else//analogicznie, jezeli usuwany element to prawe dziecko swojego rodzica
+                Suc->Parent->Right=nullptr;
+            delete Suc;//zwolnij pamiec
+        }
+        else if(isLeaf(Suc->Right))//jezeli jego prawe dziecko to lisc, zamien ich klucze miejscami
+        {
+            Suc->Value=Suc->Right->Value;
+            delete Suc->Right;//zwolnij pamiec
+            Suc->Right=nullptr;//wyczysc wskazniki
+        }
+        else// prawe dziecko to nie liść
+        {
+            if(Suc->Parent->Left==Suc)// jezeli nastepnik to lewe dziecko swojego rodzica
+                Suc->Parent->Left=Suc->Right; // to lewym dzieckiem jego rodzica jest prawe dziecko nastepnika
+            else
+                Suc->Parent->Right=Suc->Right; // analogicznie, prawym dzieckiego rodzica nastepnika staje sie prawe dziecko nastepnika
+            Suc->Right->Parent=Suc->Parent; // zmiana rodzica dziecka
+            delete Suc;
+        }
     }
+    if(dsw)
+        DSW();
+    return;
 }
 
 Node* BST::successor(Node* Temp)
@@ -112,26 +139,23 @@ Node* BST::successor(Node* Temp)
     if(Temp->Right)//jezeli mozesz pojsc w prawo, to idz.
     {
         Temp=Temp->Right;
-        while(Temp->Left)
+        while(Temp->Left)// idz maksymalnie w lew
             Temp=Temp->Left;
-        return Temp;
+        return Temp; //zwroc wskaznik
     }
-    else if(Temp->Parent&&Temp->Parent->Left==Temp)//jezeli jestes lewym synem swojego ojca ----- czy ja to wgl potrzebuje!?
-        return Temp->Parent;
-    else                        //jezeli jestes prawym dzieckiem swojego syna
+    else  //jezeli jestes prawym dzieckiem swojego syna
     {
         while(Temp->Parent&&Temp->Parent->Right==Temp)
             Temp=Temp->Parent; //idz w gore dopoki jestes prawym dzieckiem.
 
-            // JESTEM MAKSYMALNIE NA GORZE DRZEWA, ALBO JESTEM W KONCU LEWYM SYNEM, CZYLI IDE ->PARENT->RIGHT ALBO JESTEM ROOTEM I NIE MA NASTEPNIKA
-        if (Temp==Root)
+        if (Temp==Root) // jezeli obecnie jesteś na korzeniu - nie ma nastepnika
             return nullptr;
         else                // w tym momencie jestes lewym dzieckiem
-            Temp=Temp->Parent;
-        Temp=Temp->Right;
-        while (Temp->Left)
-            Temp=Temp->Left;
-        return Temp;
+            Temp=Temp->Parent; // idz w gore
+        Temp=Temp->Right; // idz w prawo
+        while (Temp->Left) //dopoki mozesz
+            Temp=Temp->Left; //idz w lewo
+        return Temp; //zwroc wskaznik
     }
 }
 
@@ -154,7 +178,7 @@ Node* BST::isValueInBST(int value)
 
 bool BST::isLeaf(Node* Temp)
 {
-    if((!Temp->Left)&&!(Temp->Right))
+    if(!(Temp->Left)&&!(Temp->Right)) // jezeli nie ma prawego ani lewego dziecka
         return true;
     return false;
 }
@@ -174,17 +198,19 @@ void BST::loadFromFileToBST(std::string FileName)
         std::cout<<"Cos poszlo nie tak...\n";
 }
 
-void BST::generateBST(int size)
+void BST::generateBST(int size, int* tab, int randmax)
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(1, 1000000);
     clearBST(); //wyczysc drzewo
-    for (int i=0;i<size;++i)
-        addNodeToBST(dist(gen)%1000); //dodaj wartosci losowe
+    if(tab)
+        for(int i=0;i<size;++i)
+            addNodeToBST(tab[i], false);
+    else
+        for (int i=0;i<size;++i)
+            addNodeToBST(dist(gen)%(2*randmax)-randmax, false); //dodaj wartosci losowe
+    DSW();
 }
 
-void BST::printBST(std::string sp, std::string sn, Node *v)
+void BST::printBST(std::string sp, std::string sn, Node *v) //funkcja wyswietlajaca z serwisu eduinf.waw.pl/inf
 {
     std::string s;
     if(v)
@@ -243,57 +269,11 @@ void BST::deleteWholeBST(Node* Temp)
     }
 }
 
-void BST::rotateRight(Node* Temp)
-{
-    Node* FLC=Temp->Left;
-    Node* FP=Temp->Parent;
-    if(FLC)
-    {
-        Temp->Left=FLC->Right;
-        if(Temp->Left)
-            Temp->Left->Parent=Temp;
-        FLC->Right=Temp;
-        FLC->Parent=FP;
-        Temp->Parent=FLC;
-        if(FP)
-        {
-            if(FP->Left==Temp)
-                FP->Left=FLC;
-            else
-                FP->Right=FLC;
-        }
-        else Root=FLC;
-    }
-}
-
-void BST::rotateLeft(Node *Temp)
-{
-    Node *FRC=Temp->Right;
-    Node *FP=Temp->Parent;
-    if(FRC)
-    {
-        Temp->Right=FRC->Left;
-        if(Temp->Right)
-            Temp->Left->Parent=Temp;
-        FRC->Left=Temp;
-        FRC->Parent=FP;
-        Temp->Parent=FRC;
-        if(FP)
-        {
-            if(FP->Right==Temp)
-                FP->Right=FRC;
-            else
-                FP->Left=FRC;
-        }
-        else Root = FRC;
-        }
-}
-
 void BST::DSW()
 {
     Node *Temp=Root;//ustawiam temp na korzen
     int n=0;//ilosc wezlow
-    while(Temp)
+    while(Temp) // tworzenie struktury listy -- wszystkie elementy są prawymi dziecmi swoich rodzicow
     {
         if(Temp->Left)//jezeli mozesz
         {
@@ -324,4 +304,96 @@ void BST::DSW()
             Temp=Temp->Parent->Right;
         }
     }
+}
+
+void BST::rotateRight(Node* A)
+{
+    Node* B=A->Left; //zapisuje sobie adres lewego dziecka A
+    A->Left=B->Right; //zamieniam odpowiednie pola
+    if(B->Right)
+        B->Right->Parent=A;
+    B->Parent=A->Parent;
+    B->Right=A;
+    A->Parent=B;
+    if(B->Parent) // jezeli nie jestes korzeniem
+    {
+        if(B->Parent->Left==A)
+            B->Parent->Left=B;
+        else
+            B->Parent->Right=B;
+    }
+    else
+        Root=B;
+}
+
+void BST::rotateLeft(Node *A) // analogicznie
+{
+    Node* B=A->Right;
+    A->Right=B->Left;
+    if(B->Left)
+        B->Left->Parent=A;
+    B->Parent=A->Parent;
+    B->Left=A;
+    A->Parent=B;
+    if(B->Parent)
+    {
+        if(B->Parent->Left==A)
+            B->Parent->Left=B;
+        else
+            B->Parent->Right=B;
+    }
+    else
+        Root=B;
+}
+
+void BST::menuRotateRight(int value) // funkcja publiczna do wyswietlenia w menu programu
+{
+    Node* A=isValueInBST(value);
+    if(A&&A->Left)
+    {
+        Node* B=A->Left;
+        A->Left=B->Right;
+        if(B->Right)
+            B->Right->Parent=A;
+        B->Parent=A->Parent;
+        B->Right=A;
+        A->Parent=B;
+        if(B->Parent)
+        {
+            if(B->Parent->Left==A)
+                B->Parent->Left=B;
+            else
+                B->Parent->Right=B;
+        }
+        else
+            Root=B;
+    }
+    else
+        std::cout<<"\nNie ma takiego elementu.\n";
+}
+
+void BST::menuRotateLeft(int value)// funkcja publiczna do wyswietlenia w menu programu
+{
+    Node* A=isValueInBST(value);
+    if(A&&A->Right)
+    {
+        Node* B=A->Right;
+        A->Right=B->Left;
+        if(B->Left)
+            B->Left->Parent=A;
+        B->Parent=A->Parent;
+        B->Left=A;
+        A->Parent=B;
+        if(B->Parent)
+        {
+            if(B->Parent->Left==A)
+                B->Parent->Left=B;
+            else
+                B->Parent->Right=B;
+        }
+        else
+            Root=B;
+    }
+    else
+        std::cout<<"\nNie ma takiego elementu.\n";
 }

@@ -8,12 +8,16 @@ Heap::Heap () : cr("  "), cl("  "), cp ("  ")//konstruktor - skoro elementy kopc
 //tworze statyczna tablice, nadajac jej elementom wartosci 0, ulatwia to kolejne operacje.
 {
     cnt=0;
-    for (int i=0;i<6000000;i++)
-        tab[i]=0;
+    maxsize=1;
+    tab=nullptr;
     cr[0] = 218; cr[1] = 196;
     cl[0] = 192; cl[1] = 196;
     cp[0] = 179;
 }
+
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static std::uniform_int_distribution<> dist(1, 1000000);
 
 //funkcje obliczajace indeksy dzieci oraz rodzica.
 int Heap::indexOfLeftChild(int index) {return 2*index+1;}
@@ -24,62 +28,97 @@ int Heap::returnValueOfRoot(){return tab[0];}
 
 void Heap::addNodeToHeap(int value)
 {
-    tab[cnt]=value; //przypisz kolejnemu elementowi klucz
+    int* newtab; //nowy wskaznik
+    if(cnt+1>=maxsize) //jezeli juz nie ma miejsca
+    {
+        maxsize*=2; // zwieksz maxsize dwukrotnie
+        newtab = new int [maxsize]; // utworz nowa, dwukrotnie wieksza tablice
+        for(int i=0;i<cnt;++i) // i skopiuj elementy do nowej tablicy
+            newtab[i]=tab[i];
+        if(tab)
+            delete[] tab;// usun stara
+    }
+    else // jezeli jest wciaz miejsce
+        newtab = tab; // nowy wskaznik ustaw na stara tablice.
+    newtab[cnt]=value; //przypisz kolejnemu elementowi klucz
     //przywrocenie wlasnosci kopca
-    for (int i=cnt ; tab[i] > tab [indexOfParent(i) ] ; i=indexOfParent(i)) //petla dopoki klucz rodzica<klucz dziecka,
+    for (int i=cnt ; newtab[i] > newtab [indexOfParent(i) ] ; i=indexOfParent(i)) //petla dopoki klucz rodzica<klucz dziecka,
     { //na poczatku i=cnt, po wykonaniu i=i/2 (rodzic staje sie dzieckiem dla jego rodzica)
-        int temp=tab[indexOfParent(i)]; //do zmiennej temp przypisuje klucz rodzica
-        tab[indexOfParent(i)] = tab[i]; //-}
-        tab[i]=temp; //---------------------------}zmieniam klucze rodzica z dzieckiem.
+        int temp=newtab[indexOfParent(i)]; //do zmiennej temp przypisuje klucz rodzica
+        newtab[indexOfParent(i)] = newtab[i]; //-}
+        newtab[i]=temp; //---------------------------}zmieniam klucze rodzica z dzieckiem.
     }
     ++cnt; // zwieksz licznik kopca.
+    tab=newtab;// i zmien wskaznik obiektu na nowa tablice
 }
 
-int Heap::isValueInHeap(int value)
+bool Heap::isValueInHeap(int value)
 {
-    if(value>tab[0]) // jezel value jest wieksze od klucza korzenia, false.
-        return -1;
+    if(value>tab[0]) // jezel value jest wieksze od klucza korzenia, zwroc -1
+        return false;
     for (int i=0;i<cnt;++i)
         if(value==tab[i])
-            return i;
-    return -1;
+            return true;
+    return false;
 }
 
 void Heap::deleteFromHeap(int value, bool test)
 {
-    int i=isValueInHeap(value);
-    if(i!=(-1))
+    int index=0;
+    bool is=false;
+    if(value<=tab[0]) // jezel value jest wieksze od klucza korzenia, zwroc false
+        for (index=0;index<cnt;++index)
+            if(value==tab[index])
+            {
+                is=true;
+                break;
+            }
+
+    if(is) // jezeli istnieje ten element
     {
-        tab[i]=tab[cnt-1]; //zamieniam korzeñ z ostatnim lisciem w kopcu
-        tab[cnt-1]=0; //'usuwam' lisc
+        tab[index]=tab[cnt-1]; //zamieniam korzeñ z ostatnim lisciem w kopcu
+        int* newtab; //tworze nowy wskaznik
+
+        if((cnt-1)<=(maxsize/2))// jezeli nowy rozmiar tablicy jest na tyle maly ze pamiec mozna zmniejszyc o polowe
+        {
+            maxsize/=2; // to zmniejsz maxsize
+            newtab=new int[maxsize/2]; //i zadeklaruj nowa tablice
+            for(int j=0;j<(cnt-1);++j)
+                newtab[j]=tab[j];
+            delete[] tab;
+        }
+        else
+            newtab=tab;
         --cnt;//zmniejszam licznik
         int temp;
 
         //----------------------------------- Przywracanie w³asoœci kopca.
-
-        while(tab[i]<tab[indexOfRightChild(i)] || tab[i]<tab[indexOfLeftChild(i)])//tak dlugo jak rodzic będzie miał mniejszy klucz od dziecka
+        index=0;
+        while(((indexOfLeftChild(index)<cnt)&&(newtab[index]<newtab[indexOfLeftChild(index)])) ||
+               ((indexOfRightChild(index)<cnt)&&(newtab[index]<newtab[indexOfRightChild(index)])))//tak dlugo jak rodzic będzie miał mniejszy klucz od dziecka
         {
-            if(tab[indexOfLeftChild(i)]<tab[indexOfRightChild(i)])//jezeli prawe dziecko jest wieksze od rodzica
+            if(newtab[indexOfLeftChild(index)]<=newtab[indexOfRightChild(index)])//jezeli prawe dziecko jest wieksze od rodzica
             {//zamień jego wartosc z rodzicem
-                temp=tab[i];//zapisz sobie jedna z wartosci
-                tab[i]=tab[indexOfRightChild(i)];//zamien wartosci
-                tab[indexOfRightChild(i)] = temp;//zamien wartosci
-                i=indexOfRightChild(i);//rozpatruj dziecko
+                temp=newtab[index];//zapisz sobie jedna z wartosci
+                newtab[index]=newtab[indexOfRightChild(index)];//zamien wartosci
+                newtab[indexOfRightChild(index)] = temp;//zamien wartosci
+                index=indexOfRightChild(index);//rozpatruj dziecko
             }
-            else//analogicznie jezeli lewe dziecko jest wieksze.
+            else if (newtab[indexOfRightChild(index)]<newtab[indexOfLeftChild(index)])//analogicznie jezeli lewe dziecko jest wieksze.
             {
-                temp=tab[i];
-                tab[i]=tab[indexOfLeftChild(i)];
-                tab[indexOfLeftChild(i)] = temp;
-                i=indexOfLeftChild(i);
+                temp=newtab[index];
+                newtab[index]=newtab[indexOfLeftChild(index)];
+                newtab[indexOfLeftChild(index)] = temp;
+                index=indexOfLeftChild(index);
             }
         }
+        tab=newtab;
     }
     else
         std::cout<<"Cos poszlo nie tak...\n";
 }
 
-void Heap::printHeap(std::string sp, std::string sn, int v)
+void Heap::printHeap(std::string sp, std::string sn, int v) //funkcja wyswietlająca strukture drzewa z portalu eduinf.waw.pl/inf
 {
     std::string s;
 
@@ -106,8 +145,10 @@ void Heap::displayHeap()
 
 void Heap::clearHeap()
 {
-    for(int i=0;i<cnt;++i) //'czyszczenie' kopca - tablica statyczna.
-        tab[i]=0; // zerowanie elementow tablicy
+    if(tab)
+        delete[] tab;
+    tab=nullptr;
+    maxsize=1;
     cnt=0; //zerowanie licznika
 }
 
@@ -126,12 +167,13 @@ void Heap::loadFromFileToHeap(std::string FileName)//analogiczne jak w pliku tab
         std::cout<<"Cos poszlo nie tak...\n";
 }
 
-void Heap::generateHeap(int size)
+void Heap::generateHeap(int size, int* table, int randmax)
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(1, 1000000);
     clearHeap();//wyczysc poprzednie dane
-    for (int i=0;i<size;++i)//zapelnij nowymi.
-        addNodeToHeap(dist(gen)+1);
+    if(table)
+        for (int i=0;i<size;++i)//zapelnij nowymi.
+            addNodeToHeap(table[i]);
+    else
+        for (int i=0;i<size;++i)//zapelnij nowymi.
+            addNodeToHeap(dist(gen)%(2*randmax)-randmax);
 }

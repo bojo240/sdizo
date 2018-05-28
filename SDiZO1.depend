@@ -1,33 +1,34 @@
 # depslib dependency file v1.0
-1522829939 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.cpp
+1525739835 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.cpp
 	"BST.h"
 	<iostream>
 	<fstream>
 	<random>
 
-1522829989 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.h
+1525739810 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\bst.h
 	<string>
+	<random>
 
-1522776081 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\heap.cpp
+1525551995 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\heap.cpp
 	"Heap.h"
 	<iostream>
 	<fstream>
 	<random>
 	<iomanip>
 
-1522780253 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\heap.h
+1525545786 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\heap.h
 	<string>
 
-1522772593 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\list.cpp
+1524528142 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\list.cpp
 	"List.h"
 	<iostream>
 	<fstream>
 	<random>
 
-1522780180 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\list.h
+1524531608 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\list.h
 	<string>
 
-1522830018 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\main.cpp
+1527529131 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\main.cpp
 	<conio.h>
 	<string>
 	<chrono>
@@ -38,6 +39,7 @@
 	"List.h"
 	"Heap.h"
 	"BST.h"
+	"pomiary.h"
 
 1521921147 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\table.cpp
 	"Table.h"
@@ -55,7 +57,7 @@
 	<ratio>
 	<random>
 
-1521937178 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\table.h
+1526735544 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\table.h
 	<string>
 
 1521934028 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\list.cpp
@@ -88,29 +90,28 @@
 1521933408 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\rb.h
 	<string>
 
-1521934175 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\pomiary.cpp
+1527434538 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\pomiary.cpp
 	<conio.h>
-	<cstdlib>
 	<string>
-	<iostream>
-	<fstream>
-	<ctime>
-	<cstring>
-	<cmath>
-	<numeric>
 	<chrono>
-	<iomanip>
-	<ratio>
+	<fstream>
+	<iostream>
 	<random>
+	<ctime>
+	<windows.h>
 	"Table.h"
 	"List.h"
 	"Heap.h"
 	"BST.h"
-	"RB.h"
+	"pomiary.h"
 
-1521938707 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\table.cpp
+1526750636 source:d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\table.cpp
 	"Table.h"
 	<iostream>
 	<fstream>
+	<random>
+
+1527434103 d:\uczelnia\semestr iii & v\sdizo\sdizo1 projekt\sdizo1\pomiary.h
+	<chrono>
 	<random>
 

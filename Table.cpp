@@ -2,12 +2,16 @@
 #include <iostream>
 #include <fstream>
 #include <random>
-//---------------------------------------------------------------------wyglada, ze gotowe.
-Table::Table() : tab(nullptr), cnt(0){;}
 
-bool Table::isValueInTable(int val)
+Table::Table() : tab(nullptr), cnt(0){;} //lista inicjalizacyjna
+
+static std::random_device rd;
+static std::mt19937 gen(rd());
+static std::uniform_int_distribution<> dist(1, 1000000);
+
+bool Table::isValueInTable(int val) // funkcja bool sprawdzajaca czy wartosc jest w tablicy
 {
-    for(int i=0; i<cnt; ++i)
+    for(int i=0; i<cnt; ++i) // funkcja przechodzi po wszystkich elementach tablicy, cnt to publiczna zmienna mowiaca o ilosci elementow w tablicy
     {
         if(tab[i]==val)
             return true;
@@ -15,25 +19,25 @@ bool Table::isValueInTable(int val)
     return false;
 }
 
-void Table::addValueToTable(int index, int value)
+void Table::addValueToTable(int index, int value) //dodaj do tablicy
 {
     if(index>cnt||index<0) // zabezpieczenie przed nieprawidlowym indeksem
     {
         std::cout<<"\nNieprawidlowy index. Indeksujemy od 0.\n";
         return;
-    }//pare operacji, ponizej n operacji
+    }
     int *NewTab = new int[cnt+1]; //nowa tablica
-    for(int i=0;i<index;i++) // kopiuje wartosci przed indexem
+    for(int i=0;i<index;i++) // kopiuje wartosci przed indeksem
         NewTab[i]=tab[i];
     NewTab[index]=value; //na index wstawiam zadana wartosc
     for(int i=index+1;i<cnt+1;++i) // i kopiuje reszte
         NewTab[i]=tab[i-1];
     delete[] tab; //zwalniam pamiec
     ++cnt; // zwiekszam licznik
-    tab=NewTab; // przypisuje wskaznik na nowa tablice.
+    tab=NewTab; // przypisuje wskaznik na nowa tablice z przekazana wartoscia
 }
 
-void Table::deleteFromTable(int index)
+void Table::deleteFromTable(int index) //usun z tabeli
 {
     if(index>=cnt||index<0) //zabezpieczenie
     {
@@ -56,46 +60,51 @@ void Table::deleteFromTable(int index)
     tab=NewTab;//przypisuje wskaznik na nowa tablice
 }
 
-void Table::clearTable()
+void Table::clearTable() // funkcja usuwajaca wszystkie elementy w strukturze
 {
-    if(cnt==0)
+    if(cnt==0) // jezeli jest pusta
         return;
-    delete[] tab;
-    tab=nullptr;
-    cnt=0;
+    delete[] tab; // inaczej zwolnij pamiec
+    tab=nullptr; //wyczysc wskaznik
+    cnt=0; // wyzeruj licznik
 }
-void Table::generateTable(int size)
+
+void Table::generateTable(int size, int* t, int randmax) // tworzenie tablicy i ustawianie losowych wartosci, wzglednie --- jezeli to test: kopiowanie wartosci z przekazanej tablicy do funkcji
 {
-    std::random_device rd;
-    std::mt19937 gen(rd());
-    std::uniform_int_distribution<> dist(1, 1000000);
-    clearTable();
+    clearTable(); // wyczysc tablice
     tab=new int[size]; // deklaruje pamiec
-    for(int i=0;i<size;++i) //przypisuje losowe wartosci do tablicy.
-        tab[i]=dist(gen);
+    if(t) //jezeli jest to test
+        for(int i=0;i<size;++i)
+            tab[i]=t[i];// to zapisz do tablicy wartosci z tablicy przekazanej do funkcji
+    else
+        for(int i=0;i<size;++i) //przypisuje losowe wartosci do tablicy.
+            tab[i]=dist(gen)%(2*randmax)-randmax;
     cnt=size; // ustawiam licznik
 }
 
-void Table::displayTable()
+void Table::displayTable() // funkcja wyswietlajaca tablice
 {
     std::cout<<"\nIlosc elementow w tablicy: "<<cnt<<".\n";
     for(int i=0; i<cnt; ++i)
     {
-        std::cout<<"\n"<<i<<". "<<tab[i];
+        std::cout<<"\n"<<i%1000<<". "<<tab[i];
     }
     std::cout<<"\n";
 }
 
-void Table::loadFromFileToTable(std::string FileName)
+void Table::loadFromFileToTable(std::string FileName) // funkcja ³adujaca wartosci do tablicy
 {
     std::fstream plik; //tworze zmienna plikowa
     plik.open(FileName,std::ios::in); //otwieram plik
     if(plik.good()) //zabezpieczenie
     {
+        //najpierw przechodze przez caly plik, zeby dowiedziec sie ile jest elementow do wczytania
         delete[] tab; //zwalniam pamiec
         int i=0, a;
-        while(plik>>a)//nie podoba mi sie to...
+        while(plik>>a)
             ++i;//licznik sluzacy okresleniu ilosci danych w pliku
+
+        //potem deklaruje pamiec i wczytuje dane z pliku do tablicy
         tab=new int[i]; //deklaruje pamiec
         cnt=i;//ustawiam licznik
         i=0; // zeruje indeks
@@ -110,9 +119,4 @@ void Table::loadFromFileToTable(std::string FileName)
     }
     else
         std::cout<<"Cos poszlo nie tak...\n";
-}
-
-void Table::testAdd(int size)
-{
-
 }
