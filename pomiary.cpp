@@ -1104,7 +1104,7 @@ void pomiary::removesmallfromtableend()
             {
                 for(int j=0;j<wielkoscstruktury;++j)
                 {
-                    myTab.generateTable((i+1)*wielkoscstruktury,nullptr,100);
+                    myTab.generateTable((i+1)*wielkoscstruktury,nullptr,2000);
                     StartCounter(); //zacznij mierzyc czas
                     myTab.deleteFromTable(myTab.cnt-1);
                     czas=GetCounter();// skoncz mierzyc czas
@@ -1168,7 +1168,7 @@ void pomiary::removelargefromtableend()
             {
                 for(int j=0;j<wielkoscstruktury;++j)
                 {
-                    myTab.generateTable((i+1)*wielkoscstruktury,nullptr,1000000);
+                    myTab.generateTable((i+1)*wielkoscstruktury,nullptr,100000);
                     StartCounter(); //zacznij mierzyc czas
                     myTab.deleteFromTable(myTab.cnt-1);
                     czas=GetCounter();// skoncz mierzyc czas
@@ -1392,7 +1392,7 @@ void pomiary::removesmallfromlistend()
             {
                 for(int j=0;j<wielkoscstruktury;++j)
                 {
-                    myList.generateList((i+1)*wielkoscstruktury,nullptr,100);
+                    myList.generateList((i+1)*wielkoscstruktury,nullptr,2000);
                     StartCounter(); //zacznij mierzyc czas
                     myList.deleteFromList(myList.returnValue(myList.cnt-1));
                     czas=GetCounter();// skoncz mierzyc czas
@@ -1456,7 +1456,7 @@ void pomiary::removelargefromlistend()
             {
                 for(int j=0;j<wielkoscstruktury;++j)
                 {
-                    myList.generateList((i+1)*wielkoscstruktury,nullptr,1000000);
+                    myList.generateList((i+1)*wielkoscstruktury,nullptr,100000);
                     StartCounter(); //zacznij mierzyc czas
                     myList.deleteFromList(myList.returnValue(myList.cnt-1));
                     czas=GetCounter();// skoncz mierzyc czas
