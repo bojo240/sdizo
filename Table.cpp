@@ -19,7 +19,7 @@ bool Table::isValueInTable(int val) // funkcja bool sprawdzajaca czy wartosc jes
     return false;
 }
 
-void Table::addValueToTable(int index, int value) //dodaj do tablicy
+void Table::addValue(int index, int value) //dodaj do tablicy
 {
     if(index>cnt||index<0) // zabezpieczenie przed nieprawidlowym indeksem
     {
@@ -37,7 +37,7 @@ void Table::addValueToTable(int index, int value) //dodaj do tablicy
     tab=NewTab; // przypisuje wskaznik na nowa tablice z przekazana wartoscia
 }
 
-void Table::deleteFromTable(int index) //usun z tabeli
+void Table::remove(int index) //usun z tabeli
 {
     if(index>=cnt||index<0) //zabezpieczenie
     {
@@ -60,7 +60,7 @@ void Table::deleteFromTable(int index) //usun z tabeli
     tab=NewTab;//przypisuje wskaznik na nowa tablice
 }
 
-void Table::clearTable() // funkcja usuwajaca wszystkie elementy w strukturze
+void Table::clear() // funkcja usuwajaca wszystkie elementy w strukturze
 {
     if(cnt==0) // jezeli jest pusta
         return;
@@ -69,9 +69,9 @@ void Table::clearTable() // funkcja usuwajaca wszystkie elementy w strukturze
     cnt=0; // wyzeruj licznik
 }
 
-void Table::generateTable(int size, int* t, int randmax) // tworzenie tablicy i ustawianie losowych wartosci, wzglednie --- jezeli to test: kopiowanie wartosci z przekazanej tablicy do funkcji
+void Table::generate(int size, int* t, int randmax) // tworzenie tablicy i ustawianie losowych wartosci, wzglednie --- jezeli to test: kopiowanie wartosci z przekazanej tablicy do funkcji
 {
-    clearTable(); // wyczysc tablice
+    clear(); // wyczysc tablice
     tab=new int[size]; // deklaruje pamiec
     if(t) //jezeli jest to test
         for(int i=0;i<size;++i)
@@ -82,7 +82,7 @@ void Table::generateTable(int size, int* t, int randmax) // tworzenie tablicy i 
     cnt=size; // ustawiam licznik
 }
 
-void Table::displayTable() // funkcja wyswietlajaca tablice
+void Table::display() // funkcja wyswietlajaca tablice
 {
     std::cout<<"\nIlosc elementow w tablicy: "<<cnt<<".\n";
     for(int i=0; i<cnt; ++i)
@@ -92,7 +92,7 @@ void Table::displayTable() // funkcja wyswietlajaca tablice
     std::cout<<"\n";
 }
 
-void Table::loadFromFileToTable(std::string FileName) // funkcja ³adujaca wartosci do tablicy
+void Table::loadFromFile(std::string FileName) // funkcja ³adujaca wartosci do tablicy
 {
     std::fstream plik; //tworze zmienna plikowa
     plik.open(FileName,std::ios::in); //otwieram plik

@@ -12,7 +12,7 @@ static std::mt19937 gen(rd());
 static std::uniform_int_distribution<> dist(1, 1000000);
 
 
-void List::addValueToList(int index, int value) //najpierw przechodze po liscie w wybrane miejsce, dopiero pozniej dodaje tam wartosc.
+void List::addValue(int index, int value) //najpierw przechodze po liscie w wybrane miejsce, dopiero pozniej dodaje tam wartosc.
 {
 
     if (!Head) //jezeli nie ma head
@@ -66,9 +66,9 @@ void List::addValueToList(int index, int value) //najpierw przechodze po liscie 
         std::cout<<"Nieprawidlowy index.";
 }
 
-void List::deleteFromList(int value, bool test) // usuwanie z listy
+void List::remove(int value, bool test) // usuwanie z listy
 {
-    Elements * Temp=isValueInList(value);
+    Elements * Temp=isValue(value);
     //adres zwrocony przez funkcje isValueInList - jezeli zwroci nullptr,
     //Elementsu nie ma w liscie, czyli if(0),
     //w przeciwnym przypadku if wykona sie, i usunie Elements
@@ -106,22 +106,22 @@ void List::deleteFromList(int value, bool test) // usuwanie z listy
         std::cout<<"\nPodanej wartosci nie ma w liscie!!\n"; // wyswielt error
 }
 
-void List::loadFromFileToList(std::string FileName)
+void List::loadFromFile(std::string FileName)
 {
     std::fstream plik;
     plik.open(FileName,std::ios::in);
     if(plik.good())
     {
-        clearList(); //wyczysc liste
+        clear(); //wyczysc liste
         for(int i=0, a ; plik>>a ; ++i)
-            addValueToList(i,a); //dodawaj na koniec listy.
+            addValue(i,a); //dodawaj na koniec listy.
         plik.close();
     }
     else
         std::cout<<"Cos poszlo nie tak...\n";
 }
 
-void List::clearList()
+void List::clear()
 {
     if(!Head) //jezeli lista pusta
         return;
@@ -137,14 +137,14 @@ void List::clearList()
     cnt=0;
 }
 
-void List::generateList(int size, int* tab, int randmax)
+void List::generate(int size, int* tab, int randmax)
 {
-    clearList(); //wyczysc liste
+    clear(); //wyczysc liste
     for (int i=0;i<size;++i)
-        addValueToList(i, dist(gen)%(2*randmax)-randmax); //dodaj wartosci losowe
+        addValue(i, dist(gen)%(2*randmax)-randmax); //dodaj wartosci losowe
 }
 
-void List::displayList()
+void List::display()
 {
     Elements *Temp = Head;
     int i=0;
@@ -155,11 +155,11 @@ void List::displayList()
         Temp=Temp->Next;
         ++i;
     }
-    if(Head)
+    if(Head)// a po co to?
         std::cout<<"\nHead:"<<Head->Value<<"\nTail:"<<Tail->Value<<"\n"; //dodatkowo wyswietl wartosci head i tail
 }
 
-Elements* List::isValueInList(int value) // funkcja zwraca wskaznik na znaleziony element, jezeli nie znajdzie zwraca nullptr
+Elements* List::isValue(int value) // funkcja zwraca wskaznik na znaleziony element, jezeli nie znajdzie zwraca nullptr
 {
     Elements *Temp = Head;
     while(Temp)

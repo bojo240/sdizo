@@ -30,39 +30,39 @@ void pomiary();
 
 int main()
 {
-    pomiary();
+    //pomiary();
 
-//	char option;
-//	do{
-//		std::cout << "\n==== MENU GLOWNE ===\n";
-//		std::cout << "1. Tablica\n";
-//		std::cout << "2. Lista\n";
-//		std::cout << "3. Kopiec\n";
-//		std::cout << "4. Drzewo BST\n";
-//		std::cout << "0. Wyjscie\n";
-//		std::cout << "\nPodaj opcje:";
-//		option = getche();
-//		std::cout << "\n";
-//
-//		switch (option){
-//		case '1':
-//			menu_table();
-//			break;
-//
-//		case '2':
-//			menu_list();
-//			break;
-//
-//		case '3':
-//			menu_heap();
-//			break;
-//        case '4':
-//            menu_BST();
-//            break;
-//        break;
-//		}
-//
-//	} while (option != '0');
+	char option;
+	do{
+		std::cout << "\n==== MENU GLOWNE ===\n";
+		std::cout << "1. Tablica\n";
+		std::cout << "2. Lista\n";
+		std::cout << "3. Kopiec\n";
+		std::cout << "4. Drzewo BST\n";
+		std::cout << "0. Wyjscie\n";
+		std::cout << "\nPodaj opcje:";
+		option = getche();
+		std::cout << "\n";
+
+		switch (option){
+		case '1':
+			menu_table();
+			break;
+
+		case '2':
+			menu_list();
+			break;
+
+		case '3':
+			menu_heap();
+			break;
+        case '4':
+            menu_BST();
+            break;
+        break;
+		}
+
+	} while (option != '0');
 
 
 	return 0;
@@ -162,7 +162,7 @@ void menu_list()
 			myList.displayList();
 			break;
 		case '2':
-			std::cout << "\nPodaj wartosc:";
+			std::cout << "\nPodaj wartosc: ";
 			std::cin >> value;
             std::cout<<"\n";
 			myList.deleteFromList(value);

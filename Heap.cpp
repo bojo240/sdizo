@@ -26,7 +26,7 @@ int Heap::indexOfParent (int index) {if(index==0)return 0; return (index-1)/2;}
 
 int Heap::returnValueOfRoot(){return tab[0];}
 
-void Heap::addNodeToHeap(int value)
+void Heap::addValue(int value)
 {
     int* newtab; //nowy wskaznik
     if(cnt+1>=maxsize) //jezeli juz nie ma miejsca
@@ -52,7 +52,7 @@ void Heap::addNodeToHeap(int value)
     tab=newtab;// i zmien wskaznik obiektu na nowa tablice
 }
 
-bool Heap::isValueInHeap(int value)
+bool Heap::isValue(int value)
 {
     if(value>tab[0]) // jezel value jest wieksze od klucza korzenia, zwroc -1
         return false;
@@ -62,7 +62,7 @@ bool Heap::isValueInHeap(int value)
     return false;
 }
 
-void Heap::deleteFromHeap(int value, bool test)
+void Heap::remove(int value, bool test)
 {
     int index=0;
     bool is=false;
@@ -138,12 +138,12 @@ void Heap::printHeap(std::string sp, std::string sn, int v) //funkcja wyswietlaj
     }
 }
 
-void Heap::displayHeap()
+void Heap::display()
 {
-    printHeap("","",0);
+    print("","",0);
 }
 
-void Heap::clearHeap()
+void Heap::clear()
 {
     if(tab)
         delete[] tab;
@@ -152,28 +152,28 @@ void Heap::clearHeap()
     cnt=0; //zerowanie licznika
 }
 
-void Heap::loadFromFileToHeap(std::string FileName)//analogiczne jak w pliku table.cpp
+void Heap::loadFromFile(std::string FileName)//analogiczne jak w pliku table.cpp
 {
     std::fstream plik;
     plik.open(FileName,std::ios::in);
     if(plik.good())
     {
-        clearHeap();
+        clear();
         for(int i=0, a ; plik>>a ; ++i)
-            addNodeToHeap(a);
+            addValue(a);
         plik.close();
     }
     else
         std::cout<<"Cos poszlo nie tak...\n";
 }
 
-void Heap::generateHeap(int size, int* table, int randmax)
+void Heap::generate(int size, int* table, int randmax)
 {
     clearHeap();//wyczysc poprzednie dane
     if(table)
         for (int i=0;i<size;++i)//zapelnij nowymi.
-            addNodeToHeap(table[i]);
+            addValue(table[i]);
     else
         for (int i=0;i<size;++i)//zapelnij nowymi.
-            addNodeToHeap(dist(gen)%(2*randmax)-randmax);
+            addValue(dist(gen)%(2*randmax)-randmax);
 }

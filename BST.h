@@ -21,15 +21,15 @@ class BST
     void rotateRight(Node*);
     void rotateLeft(Node*);
     Node *Root; //wskaznik na korzen drzewa
-    public:
+public:
     BST ();//konstruktor/lista inicjalizacyjna
-	void addNodeToBST(int value, bool dsw=true);
-	void deleteFromBST(int value, bool test = false, bool dsw = true);
-    void loadFromFileToBST(std::string FileName);
-	void generateBST(int size, int* tab=nullptr, int randmax = 1000);
-	void displayBST();
-	Node* isValueInBST(int value);// funkcja zwracajaca wskaznik na szukany wezel.
-	void clearBST();
+	void addValue(int value, bool dsw=true);
+	void remove(int value, bool test = false, bool dsw = true);
+    Node* isValue(int value);// funkcja zwracajaca wskaznik na szukany wezel.
+	void generate(int size, int* tab=nullptr, int randmax = 1000);
+    void loadFromFile(std::string FileName);
+	void display();
+	void clear();
 	int returnValueOfRoot();
     void menuRotateLeft(int value);
     void menuRotateRight(int value);

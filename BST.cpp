@@ -19,7 +19,7 @@ static std::uniform_int_distribution<> dist(1, 1000000);
 
 int BST::returnValueOfRoot() {return Root->Value;}
 
-void BST::addNodeToBST(int value, bool dsw)
+void BST::addValueint value, bool dsw)
 {
     if (!Root)
     {
@@ -63,9 +63,9 @@ void BST::addNodeToBST(int value, bool dsw)
     }
 }
 
-void BST::deleteFromBST(int value, bool test, bool dsw)
+void BST::remove(int value, bool test, bool dsw)
 {
-    Node *Temp=isValueInBST(value);//tworze zmienna i przypisuje jej adres szukanego Node
+    Node *Temp=isValueIn(value);//tworze zmienna i przypisuje jej adres szukanego Node
 
     if(!Temp)//jezeli wartosci nie ma w drzewie
     {
@@ -159,7 +159,7 @@ Node* BST::successor(Node* Temp)
     }
 }
 
-Node* BST::isValueInBST(int value)
+Node* BST::isValue(int value)
 {
     Node *Temp;//wskaznik do przesuwania sie po drzewie
     Temp=Root;//przypisz mu korzen
@@ -183,7 +183,7 @@ bool BST::isLeaf(Node* Temp)
     return false;
 }
 
-void BST::loadFromFileToBST(std::string FileName)
+void BST::loadFromFile(std::string FileName)
 {
     std::fstream plik;
     plik.open(FileName,std::ios::in);
@@ -198,15 +198,15 @@ void BST::loadFromFileToBST(std::string FileName)
         std::cout<<"Cos poszlo nie tak...\n";
 }
 
-void BST::generateBST(int size, int* tab, int randmax)
+void BST::generate(int size, int* tab, int randmax)
 {
-    clearBST(); //wyczysc drzewo
+    clear(); //wyczysc drzewo
     if(tab)
         for(int i=0;i<size;++i)
-            addNodeToBST(tab[i], false);
+            addValue(tab[i], false);
     else
         for (int i=0;i<size;++i)
-            addNodeToBST(dist(gen)%(2*randmax)-randmax, false); //dodaj wartosci losowe
+            addValue(dist(gen)%(2*randmax)-randmax, false); //dodaj wartosci losowe
     DSW();
 }
 
@@ -228,13 +228,13 @@ void BST::printBST(std::string sp, std::string sn, Node *v) //funkcja wyswietlaj
     }
 }
 
-void BST::displayBST()//metoda wywolujaca rekurencyjna metode;
+void BST::display()//metoda wywolujaca rekurencyjna metode;
 {
     Node *asd=Root;
     printBST("","",asd);
 }
 
-void BST::clearBST()
+void BST::clear()
 {
     if(!Root)//jezeli drzewo jest puste
         return;

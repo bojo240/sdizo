@@ -15,12 +15,13 @@ class List
 public:
     int cnt;  //ilosc Elementow w liscie
     List ();//konstruktor/lista inicjalizacyjna
-    void loadFromFileToList(std::string FileName);
-	Elements* isValueInList(int value);
-	void addValueToList(int index, int value);
-	void deleteFromList(int value, bool test=false);
-	void displayList();
-	void generateList(int size, int * = nullptr, int randmax=1000);
-	void clearList();
+
+	void addValue(int index, int value);
+	void remove(int value, bool test=false);
+	Elements* isValueIn(int value);
+    void generate(int size, int * = nullptr, int randmax=1000);
+    void loadFromFile(std::string FileName);
+	void display();
+	void clear();
 	int returnValue(int index);
 };

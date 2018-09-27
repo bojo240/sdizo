@@ -20,6 +20,16 @@ static std::uniform_int_distribution<> dist(1, 1000000);
 double PCFreq = 0.0;
 __int64 CounterStart = 0;
 
+template <typename T>
+T add(T type, char size, char place)
+{
+//tak na prawde nie musze wiedziec jaki obiekt jest
+//przekazany, wystarczy ze wszystkie metody sa ponazywane
+//tak saamo w kazdej klasie/strukturze.
+
+}
+
+
 void pomiary::StartCounter()
 {
     LARGE_INTEGER li;
