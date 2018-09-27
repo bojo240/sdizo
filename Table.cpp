@@ -9,7 +9,7 @@ static std::random_device rd;
 static std::mt19937 gen(rd());
 static std::uniform_int_distribution<> dist(1, 1000000);
 
-bool Table::isValueInTable(int val) // funkcja bool sprawdzajaca czy wartosc jest w tablicy
+bool Table::isValue(int val) // funkcja bool sprawdzajaca czy wartosc jest w tablicy
 {
     for(int i=0; i<cnt; ++i) // funkcja przechodzi po wszystkich elementach tablicy, cnt to publiczna zmienna mowiaca o ilosci elementow w tablicy
     {

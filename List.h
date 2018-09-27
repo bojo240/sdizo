@@ -18,7 +18,7 @@ public:
 
 	void addValue(int index, int value);
 	void remove(int value, bool test=false);
-	Elements* isValueIn(int value);
+	Elements* isValue(int value);
     void generate(int size, int * = nullptr, int randmax=1000);
     void loadFromFile(std::string FileName);
 	void display();

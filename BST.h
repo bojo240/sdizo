@@ -18,8 +18,6 @@ class BST
     bool isLeaf(Node*);
 	void deleteWholeBST(Node*);
     Node* successor(Node* Temp);
-    void rotateRight(Node*);
-    void rotateLeft(Node*);
     Node *Root; //wskaznik na korzen drzewa
 public:
     BST ();//konstruktor/lista inicjalizacyjna
@@ -31,7 +29,7 @@ public:
 	void display();
 	void clear();
 	int returnValueOfRoot();
-    void menuRotateLeft(int value);
-    void menuRotateRight(int value);
+    void rotateLeft(Node* = nullptr, int value=0);
+    void rotateRight(Node* = nullptr, int value=0);
     void DSW();
 };

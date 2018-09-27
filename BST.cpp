@@ -19,7 +19,7 @@ static std::uniform_int_distribution<> dist(1, 1000000);
 
 int BST::returnValueOfRoot() {return Root->Value;}
 
-void BST::addValueint value, bool dsw)
+void BST::addValue(int value, bool dsw)
 {
     if (!Root)
     {
@@ -65,7 +65,7 @@ void BST::addValueint value, bool dsw)
 
 void BST::remove(int value, bool test, bool dsw)
 {
-    Node *Temp=isValueIn(value);//tworze zmienna i przypisuje jej adres szukanego Node
+    Node *Temp=isValue(value);//tworze zmienna i przypisuje jej adres szukanego Node
 
     if(!Temp)//jezeli wartosci nie ma w drzewie
     {
@@ -119,7 +119,7 @@ void BST::remove(int value, bool test, bool dsw)
             delete Suc->Right;//zwolnij pamiec
             Suc->Right=nullptr;//wyczysc wskazniki
         }
-        else// prawe dziecko to nie liÅ›Ä‡
+        else// prawe dziecko to nie liœæ
         {
             if(Suc->Parent->Left==Suc)// jezeli nastepnik to lewe dziecko swojego rodzica
                 Suc->Parent->Left=Suc->Right; // to lewym dzieckiem jego rodzica jest prawe dziecko nastepnika
@@ -148,7 +148,7 @@ Node* BST::successor(Node* Temp)
         while(Temp->Parent&&Temp->Parent->Right==Temp)
             Temp=Temp->Parent; //idz w gore dopoki jestes prawym dzieckiem.
 
-        if (Temp==Root) // jezeli obecnie jesteÅ› na korzeniu - nie ma nastepnika
+        if (Temp==Root) // jezeli obecnie jesteœ na korzeniu - nie ma nastepnika
             return nullptr;
         else                // w tym momencie jestes lewym dzieckiem
             Temp=Temp->Parent; // idz w gore
@@ -189,9 +189,9 @@ void BST::loadFromFile(std::string FileName)
     plik.open(FileName,std::ios::in);
     if(plik.good())
     {
-        clearBST(); //wyczysc drzewo
+        clear(); //wyczysc drzewo
         for(int i=0, a ; plik>>a ; ++i)
-            addNodeToBST(a); //dodawaj do drzewa
+            addValue(a); //dodawaj do drzewa
         plik.close();
     }
     else
@@ -243,11 +243,11 @@ void BST::clear()
 
 void BST::deleteWholeBST(Node* Temp)
 {
-    if((Temp->Left)&&!(isLeaf(Temp->Left))) // JeÅ¼eli istnieje lewe poddrzewo i nie jest lisciem
+    if((Temp->Left)&&!(isLeaf(Temp->Left))) // Je¿eli istnieje lewe poddrzewo i nie jest lisciem
         deleteWholeBST(Temp->Left); //wejdz w nie ta funkcja
     if((Temp->Right)&&!(isLeaf(Temp->Right))) // Jezeli istnieje prawe poddrzewo i nie jest liscie
         deleteWholeBST(Temp->Right);//wejdz w nie ta funkcja
-    if(!isLeaf(Temp)) // jezeli w tym punkcie funkcji nie jesteÅ› liÅ›ciem (masz prawego i/lub lewego syna-liscia)
+    if(!isLeaf(Temp)) // jezeli w tym punkcie funkcji nie jesteœ liœciem (masz prawego i/lub lewego syna-liscia)
     {//to usun swoje dzieci, a funkcja niech wroci do rodzica
         if(Temp->Right)//jezeli masz prawe dziecko, usun je
         {
@@ -273,7 +273,7 @@ void BST::DSW()
 {
     Node *Temp=Root;//ustawiam temp na korzen
     int n=0;//ilosc wezlow
-    while(Temp) // tworzenie struktury listy -- wszystkie elementy sÄ… prawymi dziecmi swoich rodzicow
+    while(Temp) // tworzenie struktury listy -- wszystkie elementy s¹ prawymi dziecmi swoich rodzicow
     {
         if(Temp->Left)//jezeli mozesz
         {
@@ -306,59 +306,25 @@ void BST::DSW()
     }
 }
 
-void BST::rotateRight(Node* A)
+void BST::rotateRight(Node* A, int value)
 {
-    Node* B=A->Left; //zapisuje sobie adres lewego dziecka A
-    A->Left=B->Right; //zamieniam odpowiednie pola
-    if(B->Right)
-        B->Right->Parent=A;
-    B->Parent=A->Parent;
-    B->Right=A;
-    A->Parent=B;
-    if(B->Parent) // jezeli nie jestes korzeniem
+    bool menu = false;//zmienna ktora sluzy stwierdzeniu, czy funkcja obrotu wywolywana jest z poziomu uzytkownika
+    if(A==nullptr)
     {
-        if(B->Parent->Left==A)
-            B->Parent->Left=B;
-        else
-            B->Parent->Right=B;
+        A=isValue(value);
+        menu=true;
     }
-    else
-        Root=B;
-}
-
-void BST::rotateLeft(Node *A) // analogicznie
-{
-    Node* B=A->Right;
-    A->Right=B->Left;
-    if(B->Left)
-        B->Left->Parent=A;
-    B->Parent=A->Parent;
-    B->Left=A;
-    A->Parent=B;
-    if(B->Parent)
-    {
-        if(B->Parent->Left==A)
-            B->Parent->Left=B;
-        else
-            B->Parent->Right=B;
-    }
-    else
-        Root=B;
-}
-
-void BST::menuRotateRight(int value) // funkcja publiczna do wyswietlenia w menu programu
-{
-    Node* A=isValueInBST(value);
     if(A&&A->Left)
     {
-        Node* B=A->Left;
-        A->Left=B->Right;
+        //std::cout<<"Jestem!";
+        Node* B=A->Left; //zapisuje sobie adres lewego dziecka A
+        A->Left=B->Right; //zamieniam odpowiednie pola
         if(B->Right)
             B->Right->Parent=A;
         B->Parent=A->Parent;
         B->Right=A;
         A->Parent=B;
-        if(B->Parent)
+        if(B->Parent) // jezeli nie jestes korzeniem
         {
             if(B->Parent->Left==A)
                 B->Parent->Left=B;
@@ -368,13 +334,19 @@ void BST::menuRotateRight(int value) // funkcja publiczna do wyswietlenia w menu
         else
             Root=B;
     }
-    else
-        std::cout<<"\nNie ma takiego elementu.\n";
+    else if (menu) // jezeli nie mozna wykonac obrotu, a funkcja byla wywolana z poziomu uzytkownika
+        std::cout<<"\nNie ma takiego elementu, badz nie mozna wykonac obrotu.\n";
+
 }
 
-void BST::menuRotateLeft(int value)// funkcja publiczna do wyswietlenia w menu programu
+void BST::rotateLeft(Node* A, int value)
 {
-    Node* A=isValueInBST(value);
+    bool menu = false;//zmienna ktora sluzy stwierdzeniu, czy funkcja obrotu wywolywana jest z poziomu uzytkownika
+    if(A==nullptr)
+    {
+        A=isValue(value);
+        menu=true;
+    }
     if(A&&A->Right)
     {
         Node* B=A->Right;
@@ -394,6 +366,7 @@ void BST::menuRotateLeft(int value)// funkcja publiczna do wyswietlenia w menu p
         else
             Root=B;
     }
-    else
-        std::cout<<"\nNie ma takiego elementu.\n";
+    else if (menu) // jezeli nie mozna wykonac obrotu, a funkcja byla wywolana z poziomu uzytkownika
+        std::cout<<"\nNie ma takiego elementu, badz nie mozna wykonac obrotu.\n";
+
 }

@@ -100,16 +100,16 @@ void menu_table()
 		case '1':
 			std::cout << "\nPodaj nazwe zbioru:";
 			std::cin >> fileName;
-			myTab.loadFromFileToTable(fileName);
-			myTab.displayTable();
+			myTab.loadFromFile(fileName);
+			myTab.display();
 			std::cout<<"\n";
 			break;
 
 		case '2':
 			std::cout << "\nPodaj index:";
 			std::cin >> index;
-			myTab.deleteFromTable(index);
-			myTab.displayTable();
+			myTab.remove(index);
+			myTab.display();
 			break;
 
 		case '3':
@@ -117,29 +117,29 @@ void menu_table()
 			std::cin >> index;
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
-			myTab.addValueToTable(index,value);
-			myTab.displayTable();
+			myTab.addValue(index,value);
+			myTab.display();
 			break;
 
 		case '4':
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
-			if (myTab.isValueInTable(value))
+			if (myTab.isValue(value))
 				std::cout << "\nPodana wartosc jest w tablicy.\n";
 			else
 				std::cout << "\nPodanej wartosci NIE ma w tablicy.\n";
-            myTab.displayTable();
+            myTab.display();
 			break;
 
 		case '5':
 			std::cout << "Podaj ilosc elementow tablicy:";
 			std::cin >> value;
-			myTab.generateTable(value);
-			myTab.displayTable();
+			myTab.generate(value);
+			myTab.display();
 			break;
 
 		case '6':
-			myTab.displayTable();
+			myTab.display();
 			break;
 		}
 	} while (opt != '0');
@@ -158,43 +158,43 @@ void menu_list()
 		case '1':
 			std::cout << "Podaj nazwe zbioru:";
 			std::cin >> fileName;
-			myList.loadFromFileToList(fileName);
-			myList.displayList();
+			myList.loadFromFile(fileName);
+			myList.display();
 			break;
 		case '2':
 			std::cout << "\nPodaj wartosc: ";
 			std::cin >> value;
             std::cout<<"\n";
-			myList.deleteFromList(value);
-			myList.displayList();
+			myList.remove(value);
+			myList.display();
 			break;
 		case '3':
 			std::cout << "\nPodaj index:\n";
 			std::cin >> index;
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
-			myList.addValueToList(index,value);
-			myList.displayList();
+			myList.addValue(index,value);
+			myList.display();
 			break;
 		case '4':
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
-			if (myList.isValueInList(value))
+			if (myList.isValue(value))
 				std::cout << "\nPodana wartosc jest w liscie.\n";
 			else
 				std::cout << "\nPodanej wartosci NIE ma w liscie.\n";
             std::cout<<"\n";
-            myList.displayList();
+            myList.display();
 			break;
 		case '5':
 			std::cout << "\nPodaj ilosc elementow listy:";
 			std::cin >> value;
-			myList.generateList(value);
+			myList.generate(value);
 			std::cout<<"\n";
-			myList.displayList();
+			myList.display();
 			break;
 		case '6':
-			myList.displayList();
+			myList.display();
 			break;
 		}
 	} while (opt != '0');
@@ -213,42 +213,42 @@ void menu_heap()
 		case '1':
 			std::cout << "Podaj nazwe zbioru:";
 			std::cin >> fileName;
-			myHeap.loadFromFileToHeap(fileName);
-			myHeap.displayHeap();
+			myHeap.loadFromFile(fileName);
+			myHeap.display();
 			break;
 		case '2':
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
             std::cout<<"\n";
-			myHeap.deleteFromHeap(value);
-			myHeap.displayHeap();
+			myHeap.remove(value);
+			myHeap.display();
 			break;
 		case '3':
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
-			myHeap.addNodeToHeap(value);
+			myHeap.addValue(value);
 			std::cout<<"\n";
-			myHeap.displayHeap();
+			myHeap.display();
 			break;
 		case '4':
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
-			if (myHeap.isValueInHeap(value))
+			if (myHeap.isValue(value))
 				std::cout << "\nPodana wartosc jest w kopcu.\n";
 			else
 				std::cout << "\nPodanej wartosci NIE ma w kopcu.\n";
             std::cout<<"\n";
-            myHeap.displayHeap();
+            myHeap.display();
 			break;
 		case '5':
 			std::cout << "\nPodaj ilosc elementow kopca:";
 			std::cin >> value;
-			myHeap.generateHeap(value);
+			myHeap.generate(value);
 			std::cout<<"\n";
-			myHeap.displayHeap();
+			myHeap.display();
 			break;
 		case '6':
-			myHeap.displayHeap();
+			myHeap.display();
 			break;
 		}
 	} while (opt != '0');
@@ -278,62 +278,62 @@ void menu_BST()
             case '1':
                 std::cout << "Podaj nazwe zbioru:";
                 std::cin >> fileName;
-                myBST.loadFromFileToBST(fileName);
-                myBST.displayBST();
+                myBST.loadFromFile(fileName);
+                myBST.display();
                 break;
             case '2':
                 std::cout << "\nPodaj wartosc:";
                 std::cin >> value;
                 std::cout<<"\n";
-                myBST.deleteFromBST(value);
+                myBST.remove(value);
                 std::cout<<"\n";
-                myBST.displayBST();
+                myBST.display();
                 break;
             case '3':
                 std::cout << "\nPodaj wartosc:";
                 std::cin >> value;
-                myBST.addNodeToBST(value);
+                myBST.addValue(value);
                 std::cout<<"\n";
-                myBST.displayBST();
+                myBST.display();
                 break;
             case '4':
                 std::cout << "\nPodaj wartosc:";
                 std::cin >> value;
-                if (myBST.isValueInBST(value))
+                if (myBST.isValue(value))
                     std::cout << "\nPodana wartosc jest w BST.\n";
                 else
                     std::cout << "\nPodanej wartosci NIE ma w BST.\n";
                 std::cout<<"\n";
-                myBST.displayBST();
+                myBST.display();
                 break;
             case '5':
                 std::cout << "\nPodaj ilosc elementow BST:";
                 std::cin >> value;
-                myBST.generateBST(value);
+                myBST.generate(value);
                 std::cout<<"\n";
-                myBST.displayBST();
+                myBST.display();
                 break;
             case '6':
-                myBST.displayBST();
+                myBST.display();
                 break;
             case '7':
                 std::cout << "\nPodaj wartosc elementu do obrocenia:";
                 std::cin >> value;
-                myBST.menuRotateLeft(value);
+                myBST.rotateLeft(nullptr, value);
                 std::cout<<"\n";
-                myBST.displayBST();
+                myBST.display();
                 break;
             case '8':
                 std::cout << "\nPodaj wartosc elementu do obrocenia:";
                 std::cin >> value;
-                myBST.menuRotateRight(value);
+                myBST.rotateRight(nullptr, value);
                 std::cout<<"\n";
-                myBST.displayBST();
+                myBST.display();
                 break;
             case '9':
                 myBST.DSW();
                 std::cout<<"\n";
-                myBST.displayBST();
+                myBST.display();
                 break;
 		}
 	} while (opt != '0');
@@ -374,18 +374,18 @@ void pomiary()
 //    pomiar.removesmallfromtablerandom();
 //    pomiar.removeaveragefromtablerandom();
 //    pomiar.removelargefromtablerandom();
-    pomiar.removesmallfromtableend();
-    pomiar.removeaveragefromtableend();
-    pomiar.removelargefromtableend();
+//    pomiar.removesmallfromtableend();
+//    pomiar.removeaveragefromtableend();
+//    pomiar.removelargefromtableend();
 //    pomiar.removesmallfromlistbegin();
 //    pomiar.removeaveragefromlistbegin();
 //    pomiar.removelargefromlistbegin();
 //    pomiar.removesmallfromlistrandom();
 //    pomiar.removeaveragefromlistrandom();
 //    pomiar.removelargefromlistrandom();
-    pomiar.removesmallfromlistend();
-    pomiar.removeaveragefromlistend();
-    pomiar.removelargefromlistend();
+//    pomiar.removesmallfromlistend();
+//    pomiar.removeaveragefromlistend();
+//   pomiar.removelargefromlistend();
 //    pomiar.removesmallfromheap();
 //    pomiar.removeaveragefromheap();
 //    pomiar.removelargefromheap();
@@ -395,16 +395,16 @@ void pomiary()
 //    pomiar.removesmallfromBST_DSW();
 //    pomiar.removeaveragefromBST_DSW();
 //    pomiar.removelargefromBST_DSW();
-    pomiar.findsmallintable();
-    pomiar.findavarageintable();
-    pomiar.findlargeintable();
-    pomiar.findsmallinlist();
-    pomiar.findavarageinlist();
-    pomiar.findlargeinlist();
-    pomiar.findsmallinheap();
-    pomiar.findavarageinheap();
-    pomiar.findlargeinheap();
-    pomiar.findsmallinBST();
-    pomiar.findavarageinBST();
-    pomiar.findlargeinBST();
+//    pomiar.findsmallintable();
+//    pomiar.findavarageintable();
+//    pomiar.findlargeintable();
+//    pomiar.findsmallinlist();
+//    pomiar.findavarageinlist();
+//    pomiar.findlargeinlist();
+//    pomiar.findsmallinheap();
+//    pomiar.findavarageinheap();
+//    pomiar.findlargeinheap();
+//    pomiar.findsmallinBST();
+//    pomiar.findavarageinBST();
+//    pomiar.findlargeinBST();
 }

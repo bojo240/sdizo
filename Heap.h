@@ -9,7 +9,7 @@ class Heap
     int indexOfLeftChild(int index); //funkcje wyliczajace indeksy rodzica oraz dzieci elementu
 	int indexOfRightChild(int index);
 	int indexOfParent(int index);
-    void printHeap(std::string, std::string, int); // funkcja sluzaca do wyswietlania drzewa  --  z portalu eduinf.waw.pl/inf
+    void print(std::string, std::string, int); // funkcja sluzaca do wyswietlania drzewa  --  z portalu eduinf.waw.pl/inf
 public:
     Heap ();
 	void addValue(int value);

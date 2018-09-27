@@ -118,7 +118,7 @@ void Heap::remove(int value, bool test)
         std::cout<<"Cos poszlo nie tak...\n";
 }
 
-void Heap::printHeap(std::string sp, std::string sn, int v) //funkcja wyswietlająca strukture drzewa z portalu eduinf.waw.pl/inf
+void Heap::print(std::string sp, std::string sn, int v) //funkcja wyswietlająca strukture drzewa z portalu eduinf.waw.pl/inf
 {
     std::string s;
 
@@ -126,7 +126,7 @@ void Heap::printHeap(std::string sp, std::string sn, int v) //funkcja wyswietlaj
     {
     s = sp;
     if(sn == cr) s[s.length() - 2] = ' ';
-    printHeap(s + cp, cr, 2 * v + 2);
+    print(s + cp, cr, 2 * v + 2);
 
     s = s.substr(0,sp.length()-2);
 
@@ -134,7 +134,7 @@ void Heap::printHeap(std::string sp, std::string sn, int v) //funkcja wyswietlaj
 
     s = sp;
     if(sn == cl) s[s.length() - 2] = ' ';
-    printHeap(s + cp, cl, 2 * v + 1);
+    print(s + cp, cl, 2 * v + 1);
     }
 }
 
@@ -169,7 +169,7 @@ void Heap::loadFromFile(std::string FileName)//analogiczne jak w pliku table.cpp
 
 void Heap::generate(int size, int* table, int randmax)
 {
-    clearHeap();//wyczysc poprzednie dane
+    clear();//wyczysc poprzednie dane
     if(table)
         for (int i=0;i<size;++i)//zapelnij nowymi.
             addValue(table[i]);
