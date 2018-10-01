@@ -12,12 +12,12 @@ class List
 {
     Elements *Head; //wskaznik na Head
     Elements *Tail; //wskaznik na Tail
+    int cnt;
 public:
-    int cnt;  //ilosc Elementow w liscie
     List ();//konstruktor/lista inicjalizacyjna
-
 	void addValue(int index, int value);
-	void remove(int value, bool test=false);
+	void removeValue(int value);
+	void removeIndex(int index);
 	Elements* isValue(int value);
     void generate(int size, int * = nullptr, int randmax=1000);
     void loadFromFile(std::string FileName);

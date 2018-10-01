@@ -23,9 +23,9 @@ __int64 CounterStart = 0;
 template <typename T>
 T add(T type, char size, char place)
 {
-//tak na prawde nie musze wiedziec jaki obiekt jest
-//przekazany, wystarczy ze wszystkie metody sa ponazywane
-//tak saamo w kazdej klasie/strukturze.
+tak na prawde nie musze wiedziec jaki obiekt jest
+przekazany, wystarczy ze wszystkie metody sa ponazywane
+tak saamo w kazdej klasie/strukturze.
 
 }
 

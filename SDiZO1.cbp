@@ -38,6 +38,7 @@
 		<Unit filename="Heap.h" />
 		<Unit filename="List.cpp" />
 		<Unit filename="List.h" />
+		<Unit filename="Structure.h" />
 		<Unit filename="Table.cpp" />
 		<Unit filename="Table.h" />
 		<Unit filename="main.cpp" />

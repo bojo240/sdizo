@@ -66,7 +66,7 @@ void List::addValue(int index, int value) //najpierw przechodze po liscie w wybr
         std::cout<<"Nieprawidlowy index.";
 }
 
-void List::remove(int value, bool test) // usuwanie z listy
+void List::remove(int value) // usuwanie z listy
 {
     Elements * Temp=isValue(value);
     //adres zwrocony przez funkcje isValueInList - jezeli zwroci nullptr,
@@ -102,7 +102,7 @@ void List::remove(int value, bool test) // usuwanie z listy
         }
         --cnt; // zmniejsz licznik
     }
-    else if (!test) // jezeli to nie jest test
+    else
         std::cout<<"\nPodanej wartosci nie ma w liscie!!\n"; // wyswielt error
 }
 
