@@ -4,8 +4,8 @@
 #include <random>
 #include <iomanip>
 
-Heap::Heap () : cr("  "), cl("  "), cp ("  ")//konstruktor - skoro elementy kopca przetrzymywane sa w tablicy,
-//tworze statyczna tablice, nadajac jej elementom wartosci 0, ulatwia to kolejne operacje.
+Heap::Heap () : cr("  "), cl("  "), cp ("  ")//konstruktor - skoro elementy kopca przetrzymywane sa w tablicy
+\
 {
     cnt=0;
     maxsize=1;
@@ -62,7 +62,7 @@ bool Heap::isValue(int value)
     return false;
 }
 
-void Heap::remove(int value, bool test)
+void Heap::removeValue(int value, bool test)
 {
     int index=0;
     bool is=false;
@@ -116,6 +116,11 @@ void Heap::remove(int value, bool test)
     }
     else
         std::cout<<"Cos poszlo nie tak...\n";
+}
+
+void Heap::pop()
+{
+    removeValue(returnValueOfRoot());
 }
 
 void Heap::print(std::string sp, std::string sn, int v) //funkcja wyswietlająca strukture drzewa z portalu eduinf.waw.pl/inf

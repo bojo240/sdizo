@@ -9,16 +9,6 @@ static std::random_device rd;
 static std::mt19937 gen(rd());
 static std::uniform_int_distribution<> dist(1, 1000000);
 
-bool Table::isValue(int val) // funkcja bool sprawdzajaca czy wartosc jest w tablicy
-{
-    for(int i=0; i<cnt; ++i) // funkcja przechodzi po wszystkich elementach tablicy, cnt to publiczna zmienna mowiaca o ilosci elementow w tablicy
-    {
-        if(tab[i]==val)
-            return true;
-    }
-    return false;
-}
-
 void Table::addValue(int index, int value) //dodaj do tablicy
 {
     if(index>cnt||index<0) // zabezpieczenie przed nieprawidlowym indeksem
@@ -37,7 +27,36 @@ void Table::addValue(int index, int value) //dodaj do tablicy
     tab=NewTab; // przypisuje wskaznik na nowa tablice z przekazana wartoscia
 }
 
-void Table::remove(int index) //usun z tabeli
+void Table::removeValue(int value)
+{
+    int i=0;
+    for(;i<cnt;++i)
+        if(tab[i]==value)
+            break;
+    //std::cout<<"cnt to:"<<cnt<<"a i to:"<<i<<'\n';
+    if(i==cnt&&tab[i-1]!=value)
+    {
+        std::cout<<"Podanej wartosci nie ma w tablicy.";
+        return;
+    }
+    else if(tab[cnt-1]==value)
+    {
+        delete &tab[i];//po prostu go usun
+        --cnt;
+        return;
+    }
+    int *NewTab = new int[cnt-1];
+    for(int j=0;j<i;++j)
+        NewTab[j]=tab[j];
+    for(int j=i+1;j<cnt;++j)
+        NewTab[j-1]=tab[j];
+        delete[] tab;
+    --cnt;
+    tab=NewTab;
+
+}
+
+void Table::removeIndex(int index) //usun z tabeli
 {
     if(index>=cnt||index<0) //zabezpieczenie
     {
@@ -60,13 +79,14 @@ void Table::remove(int index) //usun z tabeli
     tab=NewTab;//przypisuje wskaznik na nowa tablice
 }
 
-void Table::clear() // funkcja usuwajaca wszystkie elementy w strukturze
+bool Table::isValue(int val) // funkcja bool sprawdzajaca czy wartosc jest w tablicy
 {
-    if(cnt==0) // jezeli jest pusta
-        return;
-    delete[] tab; // inaczej zwolnij pamiec
-    tab=nullptr; //wyczysc wskaznik
-    cnt=0; // wyzeruj licznik
+    for(int i=0; i<cnt; ++i) // funkcja przechodzi po wszystkich elementach tablicy, cnt to publiczna zmienna mowiaca o ilosci elementow w tablicy
+    {
+        if(tab[i]==val)
+            return true;
+    }
+    return false;
 }
 
 void Table::generate(int size, int* t, int randmax) // tworzenie tablicy i ustawianie losowych wartosci, wzglednie --- jezeli to test: kopiowanie wartosci z przekazanej tablicy do funkcji
@@ -80,16 +100,6 @@ void Table::generate(int size, int* t, int randmax) // tworzenie tablicy i ustaw
         for(int i=0;i<size;++i) //przypisuje losowe wartosci do tablicy.
             tab[i]=dist(gen)%(2*randmax)-randmax;
     cnt=size; // ustawiam licznik
-}
-
-void Table::display() // funkcja wyswietlajaca tablice
-{
-    std::cout<<"\nIlosc elementow w tablicy: "<<cnt<<".\n";
-    for(int i=0; i<cnt; ++i)
-    {
-        std::cout<<"\n"<<i%1000<<". "<<tab[i];
-    }
-    std::cout<<"\n";
 }
 
 void Table::loadFromFile(std::string FileName) // funkcja ³adujaca wartosci do tablicy
@@ -119,4 +129,23 @@ void Table::loadFromFile(std::string FileName) // funkcja ³adujaca wartosci do t
     }
     else
         std::cout<<"Cos poszlo nie tak...\n";
+}
+
+void Table::display() // funkcja wyswietlajaca tablice
+{
+    std::cout<<"\nIlosc elementow w tablicy: "<<cnt<<".\n";
+    for(int i=0; i<cnt; ++i)
+    {
+        std::cout<<"\n"<<i%1000<<". "<<tab[i];
+    }
+    std::cout<<"\n";
+}
+
+void Table::clear() // funkcja usuwajaca wszystkie elementy w strukturze
+{
+    if(cnt==0) // jezeli jest pusta
+        return;
+    delete[] tab; // inaczej zwolnij pamiec
+    tab=nullptr; //wyczysc wskaznik
+    cnt=0; // wyzeruj licznik
 }

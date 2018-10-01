@@ -115,36 +115,36 @@
 	<chrono>
 	<random>
 
-1538082440 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\bst.cpp
+1538399782 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\bst.cpp
 	"BST.h"
 	<iostream>
 	<fstream>
 	<random>
 
-1538079193 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\bst.h
+1538402582 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\bst.h
 	<string>
 	<random>
 
-1538080131 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\heap.cpp
+1538402030 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\heap.cpp
 	"Heap.h"
 	<iostream>
 	<fstream>
 	<random>
 	<iomanip>
 
-1538080126 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\heap.h
+1538402585 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\heap.h
 	<string>
 
-1538070973 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\list.cpp
+1538401905 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\list.cpp
 	"List.h"
 	<iostream>
 	<fstream>
 	<random>
 
-1538080149 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\list.h
+1538399835 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\list.h
 	<string>
 
-1538080062 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\pomiary.cpp
+1538399897 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\pomiary.cpp
 	<conio.h>
 	<string>
 	<chrono>
@@ -159,20 +159,20 @@
 	"BST.h"
 	"pomiary.h"
 
-1538082518 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\table.h
+1538402589 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\table.h
 	<string>
 
 1538080386 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\pomiary.h
 	<chrono>
 	<random>
 
-1538080395 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\table.cpp
+1538401573 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\table.cpp
 	"Table.h"
 	<iostream>
 	<fstream>
 	<random>
 
-1538080369 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\main.cpp
+1538401141 source:d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\main.cpp
 	<conio.h>
 	<string>
 	<chrono>
@@ -184,4 +184,7 @@
 	"Heap.h"
 	"BST.h"
 	"pomiary.h"
+
+1538397711 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\structure.h
+	<string>
 

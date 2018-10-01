@@ -75,11 +75,12 @@ void displayMenu(std::string info)
 	std::cout << "\n";
 	std::cout << info;
 	std::cout << "\n1. Wczytaj z pliku\n";
-	std::cout << "2. Usun\n";
-	std::cout << "3. Dodaj\n";
-	std::cout << "4. Znajdz\n";
-	std::cout << "5. Utworz losowo\n";
-	std::cout << "6. Wyswietl\n";
+	std::cout << "2. Usun po indeksie\n";
+	std::cout << "3. Usun po wartosci\n";
+	std::cout << "4. Dodaj\n";
+	std::cout << "5. Znajdz\n";
+	std::cout << "6. Utworz losowo\n";
+	std::cout << "7. Wyswietl\n";
 	std::cout << "0. Powrot do menu\n";
 	std::cout << "\nPodaj opcje:";
 }
@@ -108,11 +109,19 @@ void menu_table()
 		case '2':
 			std::cout << "\nPodaj index:";
 			std::cin >> index;
-			myTab.remove(index);
+			myTab.removeIndex(index);
 			myTab.display();
 			break;
 
 		case '3':
+
+            std::cout << "\nPodaj wartosc:";
+			std::cin >> value;
+			myTab.removeValue(value);
+			myTab.display();
+			break;
+
+		case '4':
 			std::cout << "\nPodaj index:";
 			std::cin >> index;
 			std::cout << "\nPodaj wartosc:";
@@ -121,7 +130,7 @@ void menu_table()
 			myTab.display();
 			break;
 
-		case '4':
+		case '5':
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
 			if (myTab.isValue(value))
@@ -131,14 +140,14 @@ void menu_table()
             myTab.display();
 			break;
 
-		case '5':
+		case '6':
 			std::cout << "Podaj ilosc elementow tablicy:";
 			std::cin >> value;
 			myTab.generate(value);
 			myTab.display();
 			break;
 
-		case '6':
+		case '7':
 			myTab.display();
 			break;
 		}
@@ -165,7 +174,7 @@ void menu_list()
 			std::cout << "\nPodaj wartosc: ";
 			std::cin >> value;
             std::cout<<"\n";
-			myList.remove(value);
+			myList.removeValue(value);
 			myList.display();
 			break;
 		case '3':
@@ -220,7 +229,7 @@ void menu_heap()
 			std::cout << "\nPodaj wartosc:";
 			std::cin >> value;
             std::cout<<"\n";
-			myHeap.remove(value);
+			myHeap.removeValue(value);
 			myHeap.display();
 			break;
 		case '3':
@@ -285,7 +294,7 @@ void menu_BST()
                 std::cout << "\nPodaj wartosc:";
                 std::cin >> value;
                 std::cout<<"\n";
-                myBST.remove(value);
+                myBST.removeValue(value);
                 std::cout<<"\n";
                 myBST.display();
                 break;

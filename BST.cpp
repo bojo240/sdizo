@@ -18,7 +18,6 @@ static std::mt19937 gen(rd());
 static std::uniform_int_distribution<> dist(1, 1000000);
 
 int BST::returnValueOfRoot() {return Root->Value;}
-
 void BST::addValue(int value, bool dsw)
 {
     if (!Root)
@@ -63,7 +62,7 @@ void BST::addValue(int value, bool dsw)
     }
 }
 
-void BST::remove(int value, bool test, bool dsw)
+void BST::removeValue(int value, bool test, bool dsw)
 {
     Node *Temp=isValue(value);//tworze zmienna i przypisuje jej adres szukanego Node
 

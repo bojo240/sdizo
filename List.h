@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+
 struct Elements
 {
     int Value; //klucz

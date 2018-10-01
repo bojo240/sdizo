@@ -22,7 +22,7 @@ class BST
 public:
     BST ();//konstruktor/lista inicjalizacyjna
 	void addValue(int value, bool dsw=true);
-	void remove(int value, bool test = false, bool dsw = true);
+	void removeValue(int value, bool test = false, bool dsw = true);
     Node* isValue(int value);// funkcja zwracajaca wskaznik na szukany wezel.
 	void generate(int size, int* tab=nullptr, int randmax = 1000);
     void loadFromFile(std::string FileName);

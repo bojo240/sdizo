@@ -2,7 +2,7 @@
 #include <string>
 class Table
 {
-	int *tab; //tablica dynamiczna // jedyne prywatne pole
+	int *tab; //tablica dynamiczna
     int cnt; //ilosc elementow w tablicy
 public:
     Table(); //konstruktor
@@ -14,4 +14,5 @@ public:
 	void loadFromFile(std::string FileName);
     void display();
     void clear();
+    int getCnt(){return cnt;}
 };

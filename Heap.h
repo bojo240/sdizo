@@ -4,7 +4,7 @@ class Heap
 {
     std::string cr,cl,cp;
     int cnt;//ilosc elementow w kopcu
-    int* tab; //tablica statyczna
+    int* tab; //tablica dynamiczna
     int maxsize;
     int indexOfLeftChild(int index); //funkcje wyliczajace indeksy rodzica oraz dzieci elementu
 	int indexOfRightChild(int index);
@@ -13,7 +13,8 @@ class Heap
 public:
     Heap ();
 	void addValue(int value);
-	void remove(int value, bool test = false);
+	void removeValue(int value, bool test = false);
+    void pop();
 	bool isValue(int value);
     void generate(int size, int* =nullptr, int randmax=1000);
 	void loadFromFile(std::string FileName);

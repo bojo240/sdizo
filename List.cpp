@@ -66,7 +66,7 @@ void List::addValue(int index, int value) //najpierw przechodze po liscie w wybr
         std::cout<<"Nieprawidlowy index.";
 }
 
-void List::remove(int value) // usuwanie z listy
+void List::removeValue(int value) // usuwanie z listy
 {
     Elements * Temp=isValue(value);
     //adres zwrocony przez funkcje isValueInList - jezeli zwroci nullptr,
@@ -106,6 +106,33 @@ void List::remove(int value) // usuwanie z listy
         std::cout<<"\nPodanej wartosci nie ma w liscie!!\n"; // wyswielt error
 }
 
+void List::removeIndex(int index)
+{
+    removeValue(returnValue(index));
+}
+
+Elements* List::isValue(int value) // funkcja zwraca wskaznik na znaleziony element, jezeli nie znajdzie zwraca nullptr
+{
+    Elements *Temp = Head;
+    while(Temp)
+    {
+        if(Temp->Value==value)
+            return Temp;
+        if(Temp->Next)
+            Temp=Temp->Next;
+        else
+            return nullptr;
+    }
+    return nullptr;
+}
+
+void List::generate(int size, int* tab, int randmax)
+{
+    clear(); //wyczysc liste
+    for (int i=0;i<size;++i)
+        addValue(i, dist(gen)%(2*randmax)-randmax); //dodaj wartosci losowe
+}
+
 void List::loadFromFile(std::string FileName)
 {
     std::fstream plik;
@@ -119,29 +146,6 @@ void List::loadFromFile(std::string FileName)
     }
     else
         std::cout<<"Cos poszlo nie tak...\n";
-}
-
-void List::clear()
-{
-    if(!Head) //jezeli lista pusta
-        return;
-    Elements *Temp = Head; // ustaw sie na Head
-    while(Temp->Next)
-    {
-        Temp=Temp->Next;//idz do nastepnego
-        delete Temp->Prev; //zwolnij pamiec poprzedniego
-    }
-    delete Temp; //zwolnij pamiec na ostatnim elemencie
-    Head=nullptr; //wyzeruj tail, head oraz cnt
-    Tail=nullptr;
-    cnt=0;
-}
-
-void List::generate(int size, int* tab, int randmax)
-{
-    clear(); //wyczysc liste
-    for (int i=0;i<size;++i)
-        addValue(i, dist(gen)%(2*randmax)-randmax); //dodaj wartosci losowe
 }
 
 void List::display()
@@ -159,19 +163,20 @@ void List::display()
         std::cout<<"\nHead:"<<Head->Value<<"\nTail:"<<Tail->Value<<"\n"; //dodatkowo wyswietl wartosci head i tail
 }
 
-Elements* List::isValue(int value) // funkcja zwraca wskaznik na znaleziony element, jezeli nie znajdzie zwraca nullptr
+void List::clear()
 {
-    Elements *Temp = Head;
-    while(Temp)
+    if(!Head) //jezeli lista pusta
+        return;
+    Elements *Temp = Head; // ustaw sie na Head
+    while(Temp->Next)
     {
-        if(Temp->Value==value)
-            return Temp;
-        if(Temp->Next)
-            Temp=Temp->Next;
-        else
-            return nullptr;
+        Temp=Temp->Next;//idz do nastepnego
+        delete Temp->Prev; //zwolnij pamiec poprzedniego
     }
-    return nullptr;
+    delete Temp; //zwolnij pamiec na ostatnim elemencie
+    Head=nullptr; //wyzeruj tail, head oraz cnt
+    Tail=nullptr;
+    cnt=0;
 }
 
 int List::returnValue(int index) // funkcja sluzaca glownie do testow, zwraca
