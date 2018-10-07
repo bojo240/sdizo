@@ -4,6 +4,7 @@ class Table
 {
 	int *tab; //tablica dynamiczna
     int cnt; //ilosc elementow w tablicy
+    int maxsize;
 public:
     Table(); //konstruktor
     void addValue(int index, int value);

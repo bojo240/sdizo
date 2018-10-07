@@ -11,10 +11,20 @@ static std::uniform_int_distribution<> dist(1, 1000000);
 
 void Table::addValue(int index, int value) //dodaj do tablicy
 {
+    int* newtab;
     if(index>cnt||index<0) // zabezpieczenie przed nieprawidlowym indeksem
     {
         std::cout<<"\nNieprawidlowy index. Indeksujemy od 0.\n";
         return;
+    }
+    else if(cnt+1>=maxsize) //jezeli juz nie ma miejsca
+    {
+        maxsize*=2; // zwieksz maxsize dwukrotnie
+        newtab = new int [maxsize]; // utworz nowa, dwukrotnie wieksza tablice
+        for(int i=0;i<cnt;++i) // i skopiuj elementy do nowej tablicy
+            NewTab[i]=tab[i];
+        if(tab)
+            delete[] tab;// usun stara
     }
     int *NewTab = new int[cnt+1]; //nowa tablica
     for(int i=0;i<index;i++) // kopiuje wartosci przed indeksem
