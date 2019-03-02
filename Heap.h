@@ -20,6 +20,5 @@ public:
 	void loadFromFile(std::string FileName);
 	void display();
 	void clear();
-	int returnValueOfRoot();
 };
 

@@ -159,7 +159,7 @@
 	"BST.h"
 	"pomiary.h"
 
-1538402589 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\table.h
+1538402725 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\table.h
 	<string>
 
 1538080386 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\pomiary.h
@@ -187,4 +187,144 @@
 
 1538397711 d:\uczelnia\semestr iii & v & vii\sdizo\sdizo1 projekt\structure.h
 	<string>
+
+1538396182 source:d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\bst.cpp
+	"BST.h"
+	<iostream>
+	<fstream>
+	<random>
+
+1538398982 d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\bst.h
+	<string>
+	<random>
+
+1538398430 source:d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\heap.cpp
+	"Heap.h"
+	<iostream>
+	<fstream>
+	<random>
+	<iomanip>
+
+1538398985 d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\heap.h
+	<string>
+
+1538398305 source:d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\list.cpp
+	"List.h"
+	<iostream>
+	<fstream>
+	<random>
+
+1538396235 d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\list.h
+	<string>
+
+1538397541 source:d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\main.cpp
+	<conio.h>
+	<string>
+	<chrono>
+	<fstream>
+	<iostream>
+	<random>
+	"Table.h"
+	"List.h"
+	"Heap.h"
+	"BST.h"
+	"pomiary.h"
+
+1538399125 d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\table.h
+	<string>
+
+1538076786 d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\pomiary.h
+	<chrono>
+	<random>
+
+1538396297 source:d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\pomiary.cpp
+	<conio.h>
+	<string>
+	<chrono>
+	<fstream>
+	<iostream>
+	<random>
+	<ctime>
+	<windows.h>
+	"Table.h"
+	"List.h"
+	"Heap.h"
+	"BST.h"
+	"pomiary.h"
+
+1542555836 source:d:\uczelnia\semestriii&v&vii\sdizo\sdizo1 projekt\table.cpp
+	"Table.h"
+	<iostream>
+	<fstream>
+	<random>
+
+1551166696 source:d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\bst.cpp
+	"BST.h"
+	<iostream>
+	<fstream>
+	<random>
+
+1551165838 d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\bst.h
+	<string>
+	<random>
+
+1551166371 source:d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\heap.cpp
+	"Heap.h"
+	<iostream>
+	<fstream>
+	<random>
+	<iomanip>
+
+1551165850 d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\heap.h
+	<string>
+
+1551165741 source:d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\list.cpp
+	"List.h"
+	<iostream>
+	<fstream>
+	<random>
+
+1538396235 d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\list.h
+	<string>
+
+1551009483 source:d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\main.cpp
+	<conio.h>
+	<string>
+	<chrono>
+	<fstream>
+	<iostream>
+	<random>
+	"Table.h"
+	"List.h"
+	"Heap.h"
+	"BST.h"
+	"pomiary.h"
+
+1538399125 d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\table.h
+	<string>
+
+1538076786 d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\pomiary.h
+	<chrono>
+	<random>
+
+1538396297 source:d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\pomiary.cpp
+	<conio.h>
+	<string>
+	<chrono>
+	<fstream>
+	<iostream>
+	<random>
+	<ctime>
+	<windows.h>
+	"Table.h"
+	"List.h"
+	"Heap.h"
+	"BST.h"
+	"pomiary.h"
+
+1551165687 source:d:\uczelnia\semestr iv&vi\sdizo\sdizo1 projekt\table.cpp
+	"Table.h"
+	<iostream>
+	<fstream>
+	<random>
 

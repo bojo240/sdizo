@@ -3,6 +3,8 @@
 #include <fstream>
 #include <random>
 
+//nie dziala badz nie wywoluje sie dsw?
+
 Node::Node() :  Value(0), Left(nullptr), Right(nullptr), Parent(nullptr) {;}
 //konstruktor / lista inicjalizacyjna
 

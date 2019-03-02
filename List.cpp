@@ -108,7 +108,10 @@ void List::removeValue(int value) // usuwanie z listy
 
 void List::removeIndex(int index)
 {
-    removeValue(returnValue(index));
+    if(index<cnt && index >=0)
+        removeValue(returnValue(index));
+    else
+        std::cout<<"Bledny indeks!\n\n";
 }
 
 Elements* List::isValue(int value) // funkcja zwraca wskaznik na znaleziony element, jezeli nie znajdzie zwraca nullptr
@@ -159,7 +162,7 @@ void List::display()
         Temp=Temp->Next;
         ++i;
     }
-    if(Head)// a po co to?
+    if(Head)
         std::cout<<"\nHead:"<<Head->Value<<"\nTail:"<<Tail->Value<<"\n"; //dodatkowo wyswietl wartosci head i tail
 }
 

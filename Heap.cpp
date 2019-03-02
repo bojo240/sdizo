@@ -5,7 +5,6 @@
 #include <iomanip>
 
 Heap::Heap () : cr("  "), cl("  "), cp ("  ")//konstruktor - skoro elementy kopca przetrzymywane sa w tablicy
-\
 {
     cnt=0;
     maxsize=1;
@@ -23,8 +22,6 @@ static std::uniform_int_distribution<> dist(1, 1000000);
 int Heap::indexOfLeftChild(int index) {return 2*index+1;}
 int Heap::indexOfRightChild(int index) {return 2*(index+1);}
 int Heap::indexOfParent (int index) {if(index==0)return 0; return (index-1)/2;}
-
-int Heap::returnValueOfRoot(){return tab[0];}
 
 void Heap::addValue(int value)
 {
@@ -76,7 +73,7 @@ void Heap::removeValue(int value, bool test)
 
     if(is) // jezeli istnieje ten element
     {
-        tab[index]=tab[cnt-1]; //zamieniam korzeñ z ostatnim lisciem w kopcu
+        tab[index]=tab[cnt-1]; //zamieniam klucz usuwanego elementu z ostatnim lisciem w kopcu
         int* newtab; //tworze nowy wskaznik
 
         if((cnt-1)<=(maxsize/2))// jezeli nowy rozmiar tablicy jest na tyle maly ze pamiec mozna zmniejszyc o polowe
@@ -93,18 +90,20 @@ void Heap::removeValue(int value, bool test)
         int temp;
 
         //----------------------------------- Przywracanie w³asoœci kopca.
-        index=0;
+        //std::cout<<"\ncnt:"<<cnt<<"\nindex:"<<index<<"\nindexofleftchild:"<<indexOfLeftChild(index)<<"\nindexofrightchild:"<<indexOfRightChild(index);
+        //std::cout<<"\nnewtab[index]:"<<newtab[index]<<"\nnewtab[indexofleftchild(index)]"<<newtab[indexOfLeftChild(index)]<<"\nnewtab[indexofrightchild(index)]"<<newtab[indexOfRightChild(index)]<<'\n';
         while(((indexOfLeftChild(index)<cnt)&&(newtab[index]<newtab[indexOfLeftChild(index)])) ||
                ((indexOfRightChild(index)<cnt)&&(newtab[index]<newtab[indexOfRightChild(index)])))//tak dlugo jak rodzic będzie miał mniejszy klucz od dziecka
         {
-            if(newtab[indexOfLeftChild(index)]<=newtab[indexOfRightChild(index)])//jezeli prawe dziecko jest wieksze od rodzica
+            //display();
+            if((indexOfLeftChild(index)<cnt) && newtab[indexOfLeftChild(index)]<newtab[indexOfRightChild(index)])//jezeli prawe dziecko jest wieksze od rodzica
             {//zamień jego wartosc z rodzicem
                 temp=newtab[index];//zapisz sobie jedna z wartosci
                 newtab[index]=newtab[indexOfRightChild(index)];//zamien wartosci
                 newtab[indexOfRightChild(index)] = temp;//zamien wartosci
                 index=indexOfRightChild(index);//rozpatruj dziecko
             }
-            else if (newtab[indexOfRightChild(index)]<newtab[indexOfLeftChild(index)])//analogicznie jezeli lewe dziecko jest wieksze.
+            else if ((indexOfRightChild(index)<cnt) && newtab[indexOfRightChild(index)]<newtab[indexOfLeftChild(index)])//analogicznie jezeli lewe dziecko jest wieksze.
             {
                 temp=newtab[index];
                 newtab[index]=newtab[indexOfLeftChild(index)];
@@ -120,7 +119,7 @@ void Heap::removeValue(int value, bool test)
 
 void Heap::pop()
 {
-    removeValue(returnValueOfRoot());
+    removeValue(tab[0]);
 }
 
 void Heap::print(std::string sp, std::string sn, int v) //funkcja wyswietlająca strukture drzewa z portalu eduinf.waw.pl/inf
@@ -148,7 +147,7 @@ void Heap::display()
     print("","",0);
 }
 
-void Heap::clear()
+void Heap::clear()//zwolnij pamiec i ustaw pola obiektu
 {
     if(tab)
         delete[] tab;
