@@ -3,34 +3,35 @@
 #include <fstream>
 #include <random>
 
-Table::Table() : tab(nullptr), cnt(0), maxsize(1) {;} //lista inicjalizacyjna
+Table::Table() : tab(nullptr), cnt(0) {;} //lista inicjalizacyjna
 
 static std::random_device rd;
 static std::mt19937 gen(rd());
 static std::uniform_int_distribution<> dist(1, 1000000);
 
-void Table::addValue(int index, int value) //dodaj do tablicy
+void Table::addValue(int value, int index) //dodaj do tablicy
 {
+    //std::cout<<tab;
+    //std::cout<<"Halo";
     int* newtab;
     if(index>cnt||index<0) // zabezpieczenie przed nieprawidlowym indeksem
     {
         std::cout<<"\nNieprawidlowy index. Indeksujemy od 0.\n";
         return;
     }
-    else if(cnt+1>=maxsize) //jezeli juz nie ma miejsca
-    {
-        maxsize*=2; // zwieksz maxsize dwukrotnie
-        newtab = new int [maxsize]; // utworz nowa, dwukrotnie wieksza tablice
-        for(int i=0;i<cnt;++i) // i skopiuj elementy do nowej tablicy
-            newtab[i]=tab[i];
-        if(tab)
-            delete[] tab;// usun stara
-        tab = newtab;
-    }
-    for(int i = cnt - 1; i >= index; --i)
-        tab[i+1] = tab[i];
-    tab[index] = value;
     ++cnt;
+    newtab = new int [cnt]; // utworz nowa tablice o rozmiarze o 1 wiekszym
+    for(int i=0;i<index;++i) // i skopiuj elementy do nowej tablicy
+        newtab[i]=tab[i];
+    //std::cout<<"dalej";
+    newtab[index] = value;
+    for(int i=index+1;i<cnt;++i)
+        newtab[i+1]=tab[i];
+    //std::cout<<"asd";
+    if(tab)
+        delete[] tab;// usun stara
+    tab = newtab;
+    //std::cout<<"jeszcze";
 }
 
 void Table::removeValue(int value)
@@ -39,31 +40,25 @@ void Table::removeValue(int value)
     {
         --cnt;
         delete &tab[cnt];//po prostu go usun
+        return;
     }
-    else
+    int i=0;
+    for(;i<cnt;++i)//znajdz element
+        if(tab[i]==value)
+            break;
+    if(i==cnt&&tab[i-1]!=value)//jezeli nie znalazles
     {
-        int i=0;
-        for(;i<cnt;++i)//znajdz element
-            if(tab[i]==value)
-                break;
-        if(i==cnt&&tab[i-1]!=value)//jezeli nie znalazles
-        {
-            std::cout<<"Podanej wartosci nie ma w tablicy.";
-            return;
-        }
-        --cnt;
-        for (;i<cnt;++i)//przesun wartosci w tablicy w lewo
-            tab[i] = tab[i+1];
+        std::cout<<"Podanej wartosci nie ma w tablicy.";
+        return;
     }
-    if((maxsize/2) >= cnt)//jezeli mozna zmniejszyc rozmiar tablicy
-    {
-        maxsize = maxsize / 2; //dokonaj tego
-        int* newtab = new int[maxsize];//skopiuj do nowej pamieci
-        for(int i=0;i<cnt; ++i)
-            newtab[i] = tab[i];
-        delete[] tab;//i zwolnij pamiec po starej tablicy
-        tab = newtab;
-    }
+    --cnt;
+    int* newtab = new int[cnt];
+    for (int j=0;j<i;++j)
+        newtab[j] = tab[j];
+    for (int j=i+1;j<cnt+1;++j)
+        newtab[j-1] = tab[j];
+    delete[] tab;
+    tab = newtab;
 }
 
 void Table::removeIndex(int index) //usun z tabeli po indeksie
@@ -73,19 +68,14 @@ void Table::removeIndex(int index) //usun z tabeli po indeksie
         std::cout<<"\nNieprawidlowy index. Indeksujemy od 0.\n";
         return;
     }
-    int i = index;
     --cnt;
-    for (; i < cnt; ++i) // przesun wartosci w lewo
-        tab[i] = tab[i+1];
-    if(maxsize/2 >= cnt) // jezeli mozna zmniejszyc rozmiar tablicy
-    {
-        maxsize = maxsize / 2;
-        int* newtab = new int[maxsize];
-        for(int i=0;i<cnt; ++i)
-            newtab[i] = tab[i];
-        delete[] tab;
-        tab = newtab;
-    }
+    int* newtab = new int[cnt];
+    for (int i=0;i<index;++i)
+        newtab[i] = tab[i];
+    for (int i=index+1;i<cnt+1;++i)
+        newtab[i-1] = tab[i];
+    delete[] tab;
+    tab = newtab;
 }
 
 bool Table::isValue(int val) // funkcja bool sprawdzajaca czy wartosc jest w tablicy
@@ -99,9 +89,7 @@ bool Table::isValue(int val) // funkcja bool sprawdzajaca czy wartosc jest w tab
 void Table::generate(int size, int* t, int randmax) // tworzenie tablicy i ustawianie losowych wartosci, wzglednie --- jezeli to test: kopiowanie wartosci z przekazanej tablicy do funkcji
 {
     clear(); // wyczysc tablice
-    while(maxsize<size)
-        maxsize*=2;
-    tab = new int[maxsize]; // deklaruje pamiec
+    tab = new int[size]; // deklaruje pamiec
     if(t) //jezeli jest to test
         for(int i=0;i<size;++i)
             tab[i]=t[i];// to zapisz do tablicy wartosci z tablicy przekazanej do funkcji
@@ -121,10 +109,8 @@ void Table::loadFromFile(std::string FileName) // funkcja ³adujaca wartosci do t
         int i=0, a;
         while(plik>>a)
             ++i;//licznik sluzacy okresleniu ilosci danych w pliku
-        while(maxsize<i)
-            maxsize*=2;
         //potem deklaruje pamiec i wczytuje dane z pliku do tablicy
-        tab=new int[maxsize]; //deklaruje pamiec
+        tab=new int[i]; //deklaruje pamiec
         cnt=i;//ustawiam licznik
         i=0; // zeruje indeks
         plik.close(); //otwieram plik na nowo
@@ -157,5 +143,4 @@ void Table::clear() // funkcja usuwajaca wszystkie elementy w strukturze
     delete[] tab; // inaczej zwolnij pamiec
     tab=nullptr; //wyczysc wskaznik
     cnt=0; // wyzeruj licznik
-    maxsize=1; // ustaw maxsize
 }

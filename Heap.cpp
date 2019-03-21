@@ -23,7 +23,7 @@ int Heap::indexOfLeftChild(int index) {return 2*index+1;}
 int Heap::indexOfRightChild(int index) {return 2*(index+1);}
 int Heap::indexOfParent (int index) {if(index==0)return 0; return (index-1)/2;}
 
-void Heap::addValue(int value)
+void Heap::addValue(int value, int index)
 {
     int* newtab; //nowy wskaznik
     if(cnt+1>=maxsize) //jezeli juz nie ma miejsca

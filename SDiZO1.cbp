@@ -41,7 +41,6 @@
 		<Unit filename="Table.cpp" />
 		<Unit filename="Table.h" />
 		<Unit filename="main.cpp" />
-		<Unit filename="pomiary.cpp" />
 		<Unit filename="pomiary.h" />
 		<Extensions>
 			<code_completion />

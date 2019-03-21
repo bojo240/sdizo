@@ -5,6 +5,7 @@
 #include <iostream>
 #include <random>
 #include <ctime>
+#include <typeinfo>
 #include <windows.h>
 #include "Table.h"
 #include "List.h"
@@ -12,39 +13,8 @@
 #include "BST.h"
 #include "pomiary.h"
 
-static std::fstream plik;
-static std::random_device rd;
-static std::mt19937 gen(rd());
-static std::uniform_int_distribution<> dist(1, 1000000);
-
-double PCFreq = 0.0;
-__int64 CounterStart = 0;
-
-//template <typename T>
-//T add(T type, char size, char place)
-//{
-//tak na prawde nie musze wiedziec jaki obiekt jest
-//przekazany, wystarczy ze wszystkie metody sa ponazywane
-//tak saamo w kazdej klasie/strukturze.
-//
-//}
 
 
-void pomiary::StartCounter()
-{
-    LARGE_INTEGER li;
-    PCFreq = double(li.QuadPart)/1000000000000.0;
-    QueryPerformanceCounter(&li);
-    CounterStart = li.QuadPart;
-}
-
-double pomiary::GetCounter()
-{
-    LARGE_INTEGER li;
-    QueryPerformanceCounter(&li);
-    return double(li.QuadPart-CounterStart)/PCFreq;
-}
-//
 //void pomiary::addsmalltotablebegin()
 //{
 //    double PCFreq = 0.0;

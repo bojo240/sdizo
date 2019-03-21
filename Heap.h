@@ -12,7 +12,7 @@ class Heap
     void print(std::string, std::string, int); // funkcja sluzaca do wyswietlania drzewa  --  z portalu eduinf.waw.pl/inf
 public:
     Heap ();
-	void addValue(int value);
+	void addValue(int, int = 0);
 	void removeValue(int value, bool test = false);
     void pop();
 	bool isValue(int value);

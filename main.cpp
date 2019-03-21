@@ -27,9 +27,11 @@ pomiary pomiar;
 
 int main()
 {
-    //pomiary();
+    srand(time(NULL));
+    pomiary2();
 	char option;
-	do{
+	do
+    {
 		std::cout << "\n==== MENU GLOWNE ===\n";
 		std::cout << "1. Tablica\n";
 		std::cout << "2. Lista\n";
@@ -335,8 +337,9 @@ void menu_BST()
 	} while (opt != '0');
 }
 
-void pomiary()
+void pomiary2()
 {
+    pomiar.add(myTab, 10000, 0, 500, "tableaddsmalltobegin.txt");
 //    pomiar.addsmalltotablebegin();
 //    pomiar.addaveragetotablebegin();
 //    pomiar.addlargetotablebegin();

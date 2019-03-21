@@ -12,7 +12,7 @@ static std::mt19937 gen(rd());
 static std::uniform_int_distribution<> dist(1, 1000000);
 
 
-void List::addValue(int index, int value) //najpierw przechodze po liscie w wybrane miejsce, dopiero pozniej dodaje tam wartosc.
+void List::addValue(int value, int index) //najpierw przechodze po liscie w wybrane miejsce, dopiero pozniej dodaje tam wartosc.
 {
 
     if (!Head) //jezeli nie ma head

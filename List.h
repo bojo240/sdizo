@@ -16,7 +16,7 @@ class List
     int cnt;
 public:
     List ();//konstruktor/lista inicjalizacyjna
-	void addValue(int index, int value);
+	void addValue(int, int);
 	void removeValue(int value);
 	void removeIndex(int index);
 	Elements* isValue(int value);
