@@ -22,7 +22,6 @@ Table myTab;
 List myList;
 Heap myHeap;
 BST myBST;
-
 pomiary pomiar;
 
 int main()
@@ -36,7 +35,7 @@ int main()
 		std::cout << "1. Tablica\n";
 		std::cout << "2. Lista\n";
 		std::cout << "3. Kopiec\n";
-		std::cout << "4. Drzewo BST\n";
+		//std::cout << "4. Drzewo BST\n";
 		std::cout << "0. Wyjscie\n";
 		std::cout << "\nPodaj opcje:";
 		option = getche();
@@ -105,7 +104,7 @@ void menu_table()
                 std::cin >> index;
                 std::cout << "\nPodaj wartosc:";
                 std::cin >> value;
-                myTab.addValue(index,value);
+                myTab.addValue(value,index);
                 myTab.display();
                 break;
             case '5':
@@ -171,7 +170,7 @@ void menu_list()
                 std::cin >> index;
                 std::cout << "\nPodaj wartosc:";
                 std::cin >> value;
-                myList.addValue(index,value);
+                myList.addValue(value,index);
                 myList.display();
                 break;
             case '5':
@@ -339,71 +338,18 @@ void menu_BST()
 
 void pomiary2()
 {
-    pomiar.add(myTab, 10000, 0, 500, "tableaddsmalltobegin.txt");
-//    pomiar.addsmalltotablebegin();
-//    pomiar.addaveragetotablebegin();
-//    pomiar.addlargetotablebegin();
-//    pomiar.addsmalltotablerandom();
-//    pomiar.addaveragetotablerandom();
-//    pomiar.addlargetotablerandom();
-//    pomiar.addsmalltotableend();
-//    pomiar.addaveragetotableend();
-//    pomiar.addlargetotableend();
-//    pomiar.addsmalltolistbegin();
-//    pomiar.addaveragetolistbegin();
-//    pomiar.addlargetolistbegin();
-//    pomiar.addsmalltolistrandom();
-//    pomiar.addaveragetolistrandom();
-//    pomiar.addlargetolistrandom();
-//    pomiar.addsmalltolistend();
-//    pomiar.addaveragetolistend();
-//    pomiar.addlargetolistend();
-//    pomiar.addsmalltoheap();
-//    pomiar.addaveragetoheap();
-//    pomiar.addlargetoheap();
-//    pomiar.addsmalltoBST();
-//    pomiar.addaveragetoBST();
-//    pomiar.addlargetoBST();
-//    pomiar.addsmalltoBST_DSW();
-//    pomiar.addaveragetoBST_DSW();
-//    pomiar.addlargetoBST_DSW();
-//    pomiar.removesmallfromtablebegin();
-//    pomiar.removeaveragefromtablebegin();
-//    pomiar.removelargefromtablebegin();
-//    pomiar.removesmallfromtablerandom();
-//    pomiar.removeaveragefromtablerandom();
-//    pomiar.removelargefromtablerandom();
-//    pomiar.removesmallfromtableend();
-//    pomiar.removeaveragefromtableend();
-//    pomiar.removelargefromtableend();
-//    pomiar.removesmallfromlistbegin();
-//    pomiar.removeaveragefromlistbegin();
-//    pomiar.removelargefromlistbegin();
-//    pomiar.removesmallfromlistrandom();
-//    pomiar.removeaveragefromlistrandom();
-//    pomiar.removelargefromlistrandom();
-//    pomiar.removesmallfromlistend();
-//    pomiar.removeaveragefromlistend();
-//    pomiar.removelargefromlistend();
-//    pomiar.removesmallfromheap();
-//    pomiar.removeaveragefromheap();
-//    pomiar.removelargefromheap();
-//    pomiar.removesmallfromBST();
-//    pomiar.removeaveragefromBST();
-//    pomiar.removelargefromBST();
-//    pomiar.removesmallfromBST_DSW();
-//    pomiar.removeaveragefromBST_DSW();
-//    pomiar.removelargefromBST_DSW();
-//    pomiar.findsmallintable();
-//    pomiar.findavarageintable();
-//    pomiar.findlargeintable();
-//    pomiar.findsmallinlist();
-//    pomiar.findavarageinlist();
-//    pomiar.findlargeinlist();
-//    pomiar.findsmallinheap();
-//    pomiar.findavarageinheap();
-//    pomiar.findlargeinheap();
-//    pomiar.findsmallinBST();
-//    pomiar.findavarageinBST();
-//    pomiar.findlargeinBST();
+//    pomiar.add(myTab, 10000, 0, 50000, "tableaddsmalltobegin.txt");
+//    pomiar.add(myTab, 10000, 1, 50000, "tableaddsmalltorandom.txt");
+//    pomiar.add(myTab, 10000, 2, 50000, "tableaddsmalltoend.txt");
+//    pomiar.add(myTab, 1000000, 1, 50000, "tableaddlargetorandom.txt");
+//    pomiar.add(myTab, 1000000, 0, 50000, "tableaddlargetobegin.txt");
+//    pomiar.add(myTab, 1000000, 2, 50000, "tableaddlargetoend.txt");
+//    pomiar.add(myList, 10000, 0, 20000, "listaddsmalltobegin.txt");
+//    pomiar.add(myList, 10000, 1, 20000, "listaddsmalltorandom.txt");
+//    pomiar.add(myList, 10000, 2, 20000, "tlistaddsmalltoend.txt");
+//    pomiar.add(myList, 1000000, 0, 20000, "listaddlargetobegin.txt");
+//    pomiar.add(myList, 1000000, 1, 20000, "listaddlargetorandom.txt");
+//    pomiar.add(myList, 1000000, 2, 20000, "listaddlargetoend.txt");
+//    pomiar.add(myHeap, 10000, 0, 2000, "heapaddsmall.txt");
+//    pomiar.add(myHeap, 1000000, 0, 200, "heapaddlarge.txt");
 }

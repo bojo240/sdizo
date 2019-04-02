@@ -16,13 +16,13 @@ class List
     int cnt;
 public:
     List ();//konstruktor/lista inicjalizacyjna
-	void addValue(int, int);
-	void removeValue(int value);
-	void removeIndex(int index);
-	Elements* isValue(int value);
-    void generate(int size, int * = nullptr, int randmax=1000);
+    void addValue(int, int);
+    void removeValue(int value);
+    void removeIndex(int index);
+    Elements* isValue(int value);
+    void generate(int size, long randmax = 1000);
     void loadFromFile(std::string FileName);
-	void display();
-	void clear();
-	int returnValue(int index);
+    void display();
+    void clear();
+    int returnValue(int index);
 };

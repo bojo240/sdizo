@@ -9,67 +9,54 @@
 #include <typeinfo>
 #include <cmath>
 #include <windows.h>
+#include <ratio>
 
-double PCFreq = 0.0;
-__int64 CounterStart = 0;
-
+typedef std::chrono::high_resolution_clock Clock;
+using std::chrono::nanoseconds;
+using namespace std::chrono;
 class pomiary
 {
-//    Table myTab;
-//    List myList;
-//    Heap myHeap;
-//    BST myBST;
     std::fstream plik;
     static const int pktypomiar = 10; //zmienna globalna okreslajaca rozdzielczosc pomiarow
-    static const int powtorzenia = 10; //ile razy dokonac testow
-    double czas;
+    static const int powtorzenia = 100; //ile razy dokonac testow
+    double pomiar[pktypomiar];
+
 public:
 
-    //Deklaracje metod testujacych
-    void StartCounter()
-    {
-        LARGE_INTEGER li;
-        PCFreq = double(li.QuadPart)/1000000000000.0;
-        QueryPerformanceCounter(&li);
-        CounterStart = li.QuadPart;
-    }
-
-    double GetCounter()
-    {
-        LARGE_INTEGER li;
-        QueryPerformanceCounter(&li);
-        return double(li.QuadPart-CounterStart)/PCFreq;
-    }
-
     template <class T>
-    T add(T typ, int size, int place, int wielkoscstruktury, std::string filename)
+    T add(T typ, long range, int place, int size, std::string filename)
     {
-        double PCFreq = 0.0;
-        __int64 CounterStart = 0;
-        double pomiar[pktypomiar];
-        for(int i=0;i<pktypomiar;++i)
-            pomiar[i]=0.0;
+        std::mt19937_64 gen (std::random_device{}());
+        for(int i = 0; i < pktypomiar; ++i)
+            pomiar[i] = 0.0;
+        std::uint64_t where;
         plik.open(filename, std::ios::out); //otworzenie pliku
+        if(place == 0)
+            where = 0;
         if(plik.good())
         {
-            for(int k=0;k<powtorzenia;++k)
+            for(int k = 0; k < powtorzenia; ++k)
             {
-                for (int i=0;i<pktypomiar;++i)
+                for (int i = 0; i < pktypomiar; ++i)
                 {
-                    for(int j=0;j<wielkoscstruktury;++j)
-                    {
-                        //std::cout<<pow(2,(i+1))*wielkoscstruktury;
-                        typ.generate(pow(2,(i+1))*wielkoscstruktury, nullptr, 100);
-                        StartCounter(); //zacznij mierzyc czas
-                        typ.addValue((rand()%size)-(0.5*size), place);
-                        czas=GetCounter();// skoncz mierzyc czas
-                        pomiar[i]= pomiar[i]+czas; // dodaj do odpowiedniego pola w tablicy pomiarow
-                        typ.clear(); //wyczysc tablice
-                    }
+                    typ.generate((i + 1)*size, range);
+                    auto t1 = Clock::now();
+//                    for(int j=0;j<100;++j)
+//                    {
+//                        if (place == 1)
+//                            where = gen()%((i+1)*size);
+//                        else if (place == 2)
+//                            where = (i+1)*size;
+                    typ.addValue((gen() % 2 * range) - range, where);
+//                    }
+                    auto t2 = Clock::now();
+                    duration<double, std::micro> time = duration_cast<duration<double>>(t2 - t1);
+                    pomiar[i] = pomiar[i] + time.count(); // dodaj do odpowiedniego pola w tablicy pomiarow
+                    typ.clear(); //wyczysc tablice
                 }
             }
-            for(int i=0;i<pktypomiar;++i)
-                plik<<(i+1)*wielkoscstruktury<<" "<< fabs(pomiar[i]/powtorzenia)<<'\n'; // zapisz je w pliku, pamietajac o tym, ze testy byly przeprowadzane stukrotnie
+            for(int i = 0; i < pktypomiar; ++i)
+                plik << (i + 1)*size << " " << pomiar[i] / powtorzenia << '\n'; // zapisz je w pliku, pamietajac o tym, ze testy byly przeprowadzane stukrotnie
             plik.close();
         }
     }
@@ -197,5 +184,5 @@ public:
 //    void findavarageinBST();
 //    void findlargeinBST();
 
-  //  int iloscpomiarow;
+    //  int iloscpomiarow;
 };

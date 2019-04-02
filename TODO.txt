@@ -1,4 +1,0 @@
-zmieniæ w BST menurotate i rotate w jedno rotate, zmieniæ wywo³ywanie w main.
-W momencie kiedy dodajemy template, wymusza to na nas stworzenie tych samych nazw funkcji. 
-W tym momencie du¿o kodu oszczêdzi siê poprzez dziedziczenie oraz nadpisywanie poszczególnych metod, 
-a tam gdzie ró¿ni¹ siê tylko typem, mo¿na by zrobiæ templatki w metodach.
