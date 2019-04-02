@@ -78,11 +78,11 @@ void Heap::removeValue(int value, bool test)
         //----------------------------------- Przywracanie wlasosci kopca.
         //std::cout<<"\ncnt:"<<cnt<<"\nindex:"<<index<<"\nindexofleftchild:"<<indexOfLeftChild(index)<<"\nindexofrightchild:"<<indexOfRightChild(index);
         //std::cout<<"\ntab[index]:"<<tab[index]<<"\ntab[indexofleftchild(index)]"<<tab[indexOfLeftChild(index)]<<"\ntab[indexofrightchild(index)]"<<tab[indexOfRightChild(index)]<<'\n';
-        while(((indexOfLeftChild(index) < cnt) && (tab[index] < tab[indexOfLeftChild(index)])) ||
-                ((indexOfRightChild(index) < cnt) && (tab[index] < tab[indexOfRightChild(index)]))) //tak dlugo jak rodzic bêdzie mia³ mniejszy klucz od dziecka
+        while(((indexOfLeftChild(index) < cnt) && (tab[index] <= tab[indexOfLeftChild(index)])) ||
+                ((indexOfRightChild(index) < cnt) && (tab[index] <= tab[indexOfRightChild(index)]))) //tak dlugo jak rodzic bêdzie mia³ mniejszy klucz od dziecka
         {
             //display();
-            if((indexOfLeftChild(index) < cnt) && tab[indexOfLeftChild(index)] < tab[indexOfRightChild(index)]) //jezeli prawe dziecko jest wieksze od rodzica
+            if((indexOfLeftChild(index) < cnt) && tab[indexOfLeftChild(index)] <= tab[indexOfRightChild(index)]) //jezeli prawe dziecko jest wieksze od rodzica
             {
                 //zamieñ jego wartosc z rodzicem
                 temp = tab[index]; //zapisz sobie jedna z wartosci
@@ -90,7 +90,7 @@ void Heap::removeValue(int value, bool test)
                 tab[indexOfRightChild(index)] = temp;//zamien wartosci
                 index = indexOfRightChild(index); //rozpatruj dziecko
             }
-            else if ((indexOfRightChild(index) < cnt) && tab[indexOfRightChild(index)] < tab[indexOfLeftChild(index)]) //analogicznie jezeli lewe dziecko jest wieksze.
+            else if ((indexOfRightChild(index) < cnt) && tab[indexOfRightChild(index)] <= tab[indexOfLeftChild(index)]) //analogicznie jezeli lewe dziecko jest wieksze.
             {
                 temp = tab[index];
                 tab[index] = tab[indexOfLeftChild(index)];
